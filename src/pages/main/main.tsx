@@ -1,9 +1,9 @@
 import {JSX} from 'react';
 import PlacesList from '../../components/places-list/places-list';
-import {Offer} from '../../mocks/offers';
+import {OfferData} from '../../types/types';
 
 type Props = {
-  offers: Offer[];
+  offers: OfferData[];
 }
 
 function Main({offers}: Props): JSX.Element {

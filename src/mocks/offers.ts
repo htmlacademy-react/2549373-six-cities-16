@@ -1,28 +1,6 @@
-export type Location = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-}
+import {OfferData} from '../types/types';
 
-export type City = {
-  name: string;
-  location: Location;
-}
-
-export type Offer = {
-  id: string;
-  title: string;
-  type: string;
-  price: number;
-  city: City;
-  location: Location;
-  isFavorite: boolean;
-  isPremium: boolean;
-  rating: number;
-  previewImage: string;
-}
-
-export const offers: Offer[] = [
+export const offers: OfferData[] = [
   {
     'id': 'f641a4cd-06b9-4a1d-8957-3e19fcad7948',
     'title': 'Nice, cozy, warm big bed apartment',
