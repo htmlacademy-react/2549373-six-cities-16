@@ -1,12 +1,12 @@
 import {JSX} from 'react';
-import {Offer} from '../../mocks/offers';
 import {capitalizeFirstLetter} from '../../functions';
 import Rating from '../rating/rating';
 import CardMarkPremium from '../card-mark-premium/card-mark-premium';
 import Favorite from '../favorite/favorite';
+import {OfferData} from '../../types/types';
 
 type Props = {
-  offer: Offer;
+  offer: OfferData;
 }
 
 function PlaceCard({offer}: Props): JSX.Element {
