@@ -9,7 +9,7 @@ export type City = {
   location: Location;
 }
 
-export type OfferData = {
+export type Offer = {
   id: string;
   title: string;
   type: string;
@@ -21,3 +21,5 @@ export type OfferData = {
   rating: number;
   previewImage: string;
 }
+
+export type Offers = Offer[];

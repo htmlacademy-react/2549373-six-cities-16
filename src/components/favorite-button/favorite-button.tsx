@@ -1,10 +1,10 @@
 import {JSX} from 'react';
 
-type FavoriteProps = {
+type FavoriteButtonProps = {
   isFavorite: boolean;
 }
 
-function Favorite({isFavorite}: FavoriteProps): JSX.Element {
+function FavoriteButton({isFavorite}: FavoriteButtonProps): JSX.Element {
   const classes = ['place-card__bookmark-button', 'button'];
   if (isFavorite) {
     classes.push('place-card__bookmark-button--active');
@@ -20,4 +20,4 @@ function Favorite({isFavorite}: FavoriteProps): JSX.Element {
   );
 }
 
-export default Favorite;
+export default FavoriteButton;

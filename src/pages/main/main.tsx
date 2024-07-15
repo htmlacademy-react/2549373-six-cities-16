@@ -1,21 +1,21 @@
 import {JSX} from 'react';
 import PlacesList from '../../components/places-list/places-list';
-import {OfferData} from '../../types/types';
+import {Offers} from '../../types/offers';
+import Logo from '../../components/logo/logo';
 
 type Props = {
-  offers: OfferData[];
+  offers: Offers;
 }
 
 function Main({offers}: Props): JSX.Element {
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+              <Logo width="81" height="41"/>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -96,7 +96,7 @@ function Main({offers}: Props): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <PlacesList offers={offers} />
+              <PlacesList offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
