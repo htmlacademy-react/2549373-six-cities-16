@@ -1,27 +1,26 @@
-import { JSX, useState } from 'react';
+import { JSX} from 'react';
 import PlaceCard from '../place-card/place-card';
-import { Cities } from '../../const';
 import { Offer, Offers } from '../../types/offers';
 import { Nullable } from '../../types/globals';
 
 type Props = {
   offers: Offers;
+  changeCurrentOffer: (offer: Nullable<Offer>) => void;
 }
 
-function PlacesList({ offers }: Props): JSX.Element {
-  const [, setCurrentOffer] = useState<Nullable<Offer>>(null);
+function PlacesList({ offers, changeCurrentOffer }: Props): JSX.Element {
 
   function handlerCurrentOffer(offer: Nullable<Offer>) {
     if (offer) {
-      setCurrentOffer({ ...offer });
+      changeCurrentOffer({ ...offer });
     } else {
-      setCurrentOffer(null);
+      changeCurrentOffer(null);
     }
   }
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      {offers.filter((offer: Offer) => offer.city.name === Cities.Amsterdam).slice(0, 5).map((offer: Offer) =>
+      {offers.map((offer: Offer) =>
         <PlaceCard key={offer.id} offer={offer} isCities setCurrentOffer={handlerCurrentOffer} />)}
     </div>
   );

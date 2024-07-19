@@ -20,4 +20,15 @@ const enum AuthStatus {
   Unknown = 'UNKNOWN',
 }
 
-export {Cities, AppRoute, AuthStatus};
+const URL_MARKER_CURRENT = 'img/pin-active.svg';
+const URL_MARKER_DEFAULT = 'img/pin.svg';
+const QUERY_PARAMETER = 'slug';
+
+export {
+  Cities,
+  AppRoute,
+  AuthStatus,
+  URL_MARKER_CURRENT,
+  URL_MARKER_DEFAULT,
+  QUERY_PARAMETER,
+};

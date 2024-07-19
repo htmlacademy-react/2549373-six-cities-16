@@ -14,13 +14,12 @@ type AppProps = {
 }
 
 function App({offers}: AppProps): JSX.Element {
-
   const currentStatus: AuthStatus = AuthStatus.Auth;
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<Main offers={offers}/>}/>
+        <Route path={AppRoute.Main} element={<Main offers={offers} />}/>
         <Route path={AppRoute.Login} element={
           <PublicRoute status={currentStatus}>
             <Login/>
