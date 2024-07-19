@@ -1,36 +1,56 @@
 import {JSX} from 'react';
 import {capitalizeFirstLetter} from '../../functions';
-import Rating from '../rating/rating';
 import CardMarkPremium from '../card-mark-premium/card-mark-premium';
-import Favorite from '../favorite/favorite';
-import {OfferData} from '../../types/types';
+import {Offer} from '../../types/offers';
+import classNames from 'classnames';
+import FavoriteButton from '../favorite-button/favorite-button';
+import {Nullable} from '../../types/globals';
+import {Link} from 'react-router-dom';
+import RatingView from '../rating-view/rating-view';
 
 type Props = {
-  offer: OfferData;
+  offer: Offer;
+  isCities: boolean;
+  setCurrentOffer: (offer: Nullable<Offer>) => void;
 }
 
-function PlaceCard({offer}: Props): JSX.Element {
-  const {previewImage, price, type, title, isPremium, isFavorite, rating} = offer;
+function PlaceCard({offer, isCities, setCurrentOffer}: Props): JSX.Element {
+  const {id, previewImage, price, type, title, isPremium, isFavorite, rating} = offer;
+  const classesArticle = classNames(['place-card', {'cities__card': isCities}, {'favorites__card': !isCities}]);
+  const classesImageWrapper = classNames(['place-card__image-wrapper', {'cities__image-wrapper': isCities}, {'favorites__image-wrapper': !isCities}]);
+
+  function handlerMouseEnter() {
+    setCurrentOffer(offer);
+  }
+  function handlerMouseLeave() {
+    setCurrentOffer(null);
+  }
 
   return (
-    <article className="cities__card place-card">
+    <article className={classesArticle} onMouseEnter={handlerMouseEnter} onMouseLeave={handlerMouseLeave}>
       {isPremium && <CardMarkPremium/>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
-        </a>
+      <div className={classesImageWrapper}>
+        <Link to={`/offer/${id}`}>
+          <img
+            className="place-card__image"
+            src={previewImage}
+            width={isCities ? '260' : '150'}
+            height={isCities ? '200' : '110'}
+            alt="Place image"
+          />
+        </Link>
       </div>
-      <div className="place-card__info">
+      <div className={classNames(['place-card__info', {'favorites__card-info': !isCities}])}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <Favorite isFavorite={isFavorite}/>
+          <FavoriteButton isFavorite={isFavorite}/>
         </div>
-        <Rating rating={rating}/>
+        <RatingView rating={rating}/>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{capitalizeFirstLetter(type)}</p>
       </div>

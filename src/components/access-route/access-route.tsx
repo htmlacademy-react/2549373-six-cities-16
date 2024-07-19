@@ -1,7 +1,7 @@
 import {Navigate} from 'react-router-dom';
-import {AppRoute, AuthStatus} from '../../types/enems/enams';
 import {ReactNode} from 'react';
 import LoadingSpinner from '../loading-spinner/loading-spinner';
+import {AppRoute, AuthStatus} from '../../const';
 
 export type AccessRouteProps = {
   children: ReactNode;

@@ -1,6 +1,6 @@
-import {OfferData} from '../types/types';
+import {Offers} from '../types/offers';
 
-export const offers: OfferData[] = [
+export const offers: Offers = [
   {
     'id': 'f641a4cd-06b9-4a1d-8957-3e19fcad7948',
     'title': 'Nice, cozy, warm big bed apartment',
@@ -20,7 +20,7 @@ export const offers: OfferData[] = [
       'longitude': 2.342499,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': true,
     'rating': 2.4
   },
@@ -66,7 +66,7 @@ export const offers: OfferData[] = [
       'longitude': 2.335499,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 4.3
   },
@@ -112,7 +112,7 @@ export const offers: OfferData[] = [
       'longitude': 2.375499,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 3.3
   },
@@ -2412,7 +2412,7 @@ export const offers: OfferData[] = [
       'longitude': 6.7773140000000005,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': true,
     'rating': 3.3
   },
@@ -2458,7 +2458,7 @@ export const offers: OfferData[] = [
       'longitude': 6.782314,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 2.6
   },

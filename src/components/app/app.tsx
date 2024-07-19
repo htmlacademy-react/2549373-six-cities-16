@@ -5,17 +5,17 @@ import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
 import Favorites from '../../pages/favorites/favorites';
 import Offer from '../../pages/offer/offer';
-import {AppRoute, AuthStatus} from '../../types/enems/enams';
 import {PrivateRoute, PublicRoute} from '../access-route/access-route';
-import {OfferData} from '../../types/types';
+import {Offers} from '../../types/offers';
+import {AppRoute, AuthStatus} from '../../const';
 
 type AppProps = {
-  offers: OfferData[];
+  offers: Offers;
 }
 
 function App({offers}: AppProps): JSX.Element {
 
-  const currentStatus: AuthStatus = AuthStatus.NoAuth;
+  const currentStatus: AuthStatus = AuthStatus.Auth;
 
   return (
     <BrowserRouter>
@@ -29,7 +29,7 @@ function App({offers}: AppProps): JSX.Element {
         />
         <Route path={AppRoute.Favorites} element={
           <PrivateRoute status={currentStatus}>
-            <Favorites/>
+            <Favorites offers={offers}/>
           </PrivateRoute>
         }
         />
