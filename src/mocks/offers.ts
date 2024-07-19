@@ -2762,3 +2762,445 @@ export const offers: Offers = [
     'rating': 4.1
   }
 ];
+
+export const nearbyOffers: Offers = [
+  {
+    'id': '2b1d1f4b-990c-4e1a-abe5-d0405da10fff',
+    'title': 'Loft Studio in the Central Area',
+    'type': 'house',
+    'price': 390,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/9.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.868610000000004,
+      'longitude': 2.342499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': true,
+    'rating': 3.4
+  },
+  {
+    'id': '36b7a660-a8a4-4a4d-b3e8-732ca64c8cd4',
+    'title': 'Beautiful & luxurious apartment at great location',
+    'type': 'room',
+    'price': 273,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/12.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.858610000000006,
+      'longitude': 2.330499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': false,
+    'rating': 1.7
+  },
+  {
+    'id': 'cb2c441d-58c2-41b5-8168-9b564214dfab',
+    'title': 'Penthouse, 4-5 rooms + 5 balconies',
+    'type': 'house',
+    'price': 387,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/20.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.834610000000005,
+      'longitude': 2.335499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': true,
+    'rating': 2
+  },
+  {
+    'id': '57c9f89d-30b3-4c53-a210-2c7f5dde384b',
+    'title': 'Perfectly located Castro',
+    'type': 'hotel',
+    'price': 140,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/14.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.85761,
+      'longitude': 2.358499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': true,
+    'rating': 1.7
+  },
+  {
+    'id': '7967e82b-e95c-41ad-b064-7fff8d1f164a',
+    'title': 'Amazing and Extremely Central Flat',
+    'type': 'room',
+    'price': 203,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/6.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.87561,
+      'longitude': 2.375499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': true,
+    'rating': 2.6
+  },
+  {
+    'id': '33122950-2b89-47f1-b212-2f530201ca48',
+    'title': 'Penthouse, 4-5 rooms + 5 balconies',
+    'type': 'hotel',
+    'price': 409,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/9.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.87961000000001,
+      'longitude': 2.353499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': false,
+    'rating': 4.8
+  },
+  {
+    'id': 'e68fd243-4f49-42f5-8b72-634823f5dc52',
+    'title': 'Canal View Prinsengracht',
+    'type': 'apartment',
+    'price': 150,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/10.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.837610000000005,
+      'longitude': 2.3454990000000002,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': true,
+    'rating': 2
+  },
+  {
+    'id': 'b24df312-205d-4377-9c0a-f2aa1bf5db3c',
+    'title': 'House in countryside',
+    'type': 'apartment',
+    'price': 457,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/14.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.84761,
+      'longitude': 2.356499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': true,
+    'rating': 1.6
+  },
+  {
+    'id': 'f0899063-6422-469b-bab1-0cc1d2e473d3',
+    'title': 'Tile House',
+    'type': 'hotel',
+    'price': 110,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/6.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.862610000000004,
+      'longitude': 2.369499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': true,
+    'rating': 2.1
+  },
+  {
+    'id': '580f5189-403b-465f-b55b-1704381b3bb4',
+    'title': 'The Pondhouse - A Magical Place',
+    'type': 'apartment',
+    'price': 353,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/13.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.83861,
+      'longitude': 2.350499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': false,
+    'rating': 4.5
+  },
+  {
+    'id': 'c07027bd-e1d5-49c7-9ea0-c9ac36f06d73',
+    'title': 'The house among olive',
+    'type': 'hotel',
+    'price': 488,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/15.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.861610000000006,
+      'longitude': 2.340499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': true,
+    'rating': 4.8
+  },
+  {
+    'id': '0366901f-675b-4718-bbcd-c31d32ff02ca',
+    'title': 'Penthouse, 4-5 rooms + 5 balconies',
+    'type': 'apartment',
+    'price': 150,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/18.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.87861,
+      'longitude': 2.357499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': true,
+    'rating': 3.4
+  },
+  {
+    'id': 'b598fd57-989f-445a-81b5-4f08088878ac',
+    'title': 'Amazing and Extremely Central Flat',
+    'type': 'hotel',
+    'price': 210,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/3.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.877610000000004,
+      'longitude': 2.333499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': true,
+    'rating': 1.6
+  },
+  {
+    'id': '719ab768-0afd-4b35-aecb-412cdb75b7bb',
+    'title': 'Penthouse, 4-5 rooms + 5 balconies',
+    'type': 'room',
+    'price': 110,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/1.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.83961,
+      'longitude': 2.342499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': false,
+    'rating': 4.9
+  },
+  {
+    'id': 'e11c3fc7-e973-4446-b758-20e6e479378d',
+    'title': 'The house among olive',
+    'type': 'house',
+    'price': 464,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/13.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.865610000000004,
+      'longitude': 2.350499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': false,
+    'rating': 4
+  },
+  {
+    'id': 'b1c2c3a5-a80a-4e0a-910f-ea1bdd1257a8',
+    'title': 'Beautiful & luxurious apartment at great location',
+    'type': 'apartment',
+    'price': 405,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/10.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.846610000000005,
+      'longitude': 2.374499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': true,
+    'rating': 3.3
+  },
+  {
+    'id': '0eec958b-fc99-4281-80ce-e4402fe9083e',
+    'title': 'Wood and stone place',
+    'type': 'room',
+    'price': 281,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/18.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.837610000000005,
+      'longitude': 2.364499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': false,
+    'rating': 3.8
+  },
+  {
+    'id': 'd5cc023c-38c8-4c76-88da-6610411352ed',
+    'title': 'Loft Studio in the Central Area',
+    'type': 'house',
+    'price': 137,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/7.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.843610000000005,
+      'longitude': 2.338499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': false,
+    'rating': 1.2
+  },
+  {
+    'id': 'a93edd7a-25ac-4a7b-884d-3de7345f9077',
+    'title': 'Beautiful & luxurious apartment at great location',
+    'type': 'room',
+    'price': 251,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/4.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.84461,
+      'longitude': 2.374499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': false,
+    'rating': 2.3
+  }
+];
+
+

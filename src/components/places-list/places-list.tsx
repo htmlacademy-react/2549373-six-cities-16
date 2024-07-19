@@ -1,16 +1,19 @@
 import { JSX} from 'react';
 import PlaceCard from '../place-card/place-card';
-import { Offer, Offers } from '../../types/offers';
+import {Offers, OfferType} from '../../types/offers';
 import { Nullable } from '../../types/globals';
+import classNames from 'classnames';
+import {CITIES, NEAR_PLACES} from '../../const.ts';
 
 type Props = {
   offers: Offers;
-  changeCurrentOffer: (offer: Nullable<Offer>) => void;
+  changeCurrentOffer: (offer: Nullable<OfferType>) => void;
+  className: typeof CITIES | typeof NEAR_PLACES;
 }
 
-function PlacesList({ offers, changeCurrentOffer }: Props): JSX.Element {
+function PlacesList({ offers, changeCurrentOffer, className }: Props): JSX.Element {
 
-  function handlerCurrentOffer(offer: Nullable<Offer>) {
+  function handlerCurrentOffer(offer: Nullable<OfferType>) {
     if (offer) {
       changeCurrentOffer({ ...offer });
     } else {
@@ -18,10 +21,11 @@ function PlacesList({ offers, changeCurrentOffer }: Props): JSX.Element {
     }
   }
 
+  const classWrapper = className === CITIES ? 'cities__places-list' : 'near-places__list';
   return (
-    <div className="cities__places-list places__list tabs__content">
-      {offers.map((offer: Offer) =>
-        <PlaceCard key={offer.id} offer={offer} isCities setCurrentOffer={handlerCurrentOffer} />)}
+    <div className={classNames(['places__list', classWrapper])}>
+      {offers.map((offer: OfferType) =>
+        <PlaceCard key={offer.id} offer={offer} setCurrentOffer={handlerCurrentOffer} className={className} />)}
     </div>
   );
 }
