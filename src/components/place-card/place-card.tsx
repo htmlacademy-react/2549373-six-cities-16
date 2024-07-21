@@ -7,6 +7,7 @@ import FavoriteButton from '../favorite-button/favorite-button';
 import {Nullable} from '../../types/globals';
 import {Link} from 'react-router-dom';
 import RatingView from '../rating-view/rating-view';
+import {AppRoute} from '../../const.ts';
 
 type Props = {
   offer: Offer;
@@ -30,7 +31,7 @@ function PlaceCard({offer, isCities, setCurrentOffer}: Props): JSX.Element {
     <article className={classesArticle} onMouseEnter={handlerMouseEnter} onMouseLeave={handlerMouseLeave}>
       {isPremium && <CardMarkPremium/>}
       <div className={classesImageWrapper}>
-        <Link to={`/offer/${id}`}>
+        <Link to={AppRoute.Offer.replace(':id', id)}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -50,7 +51,7 @@ function PlaceCard({offer, isCities, setCurrentOffer}: Props): JSX.Element {
         </div>
         <RatingView rating={rating}/>
         <h2 className="place-card__name">
-          <Link to={`/offer/${id}`}>{title}</Link>
+          <Link to={AppRoute.Offer.replace(':id', id)}>{title}</Link>
         </h2>
         <p className="place-card__type">{capitalizeFirstLetter(type)}</p>
       </div>
