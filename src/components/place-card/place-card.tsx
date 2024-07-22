@@ -1,30 +1,45 @@
 import {JSX} from 'react';
 import {capitalizeFirstLetter} from '../../functions';
 import CardMarkPremium from '../card-mark-premium/card-mark-premium';
-import {Offer} from '../../types/offers';
+import {OfferType} from '../../types/offers';
 import classNames from 'classnames';
 import FavoriteButton from '../favorite-button/favorite-button';
 import {Nullable} from '../../types/globals';
 import {Link} from 'react-router-dom';
 import RatingView from '../rating-view/rating-view';
-import {AppRoute} from '../../const.ts';
+import {AppRoute, CITIES, FAVORITES, NEAR_PLACES} from '../../const.ts';
 
 type Props = {
-  offer: Offer;
-  isCities: boolean;
-  setCurrentOffer: (offer: Nullable<Offer>) => void;
+  offer: OfferType;
+  setCurrentOffer: (offer: Nullable<OfferType>) => void;
+  className: string;
 }
 
-function PlaceCard({offer, isCities, setCurrentOffer}: Props): JSX.Element {
+function PlaceCard({offer, setCurrentOffer, className}: Props): JSX.Element {
   const {id, previewImage, price, type, title, isPremium, isFavorite, rating} = offer;
-  const classesArticle = classNames(['place-card', {'cities__card': isCities}, {'favorites__card': !isCities}]);
-  const classesImageWrapper = classNames(['place-card__image-wrapper', {'cities__image-wrapper': isCities}, {'favorites__image-wrapper': !isCities}]);
+  const isFavorites: boolean = className === FAVORITES;
+  const classesArticle = classNames(['place-card', {
+    'cities__card': className === CITIES,
+    'near-places__card': className === NEAR_PLACES,
+    'favorites__card': isFavorites,
+  }]);
+  const classesImageWrapper = classNames(['place-card__image-wrapper', {
+    'cities__image-wrapper': className === CITIES,
+    'near-places__image-wrapper': className === NEAR_PLACES,
+    'favorites__image-wrapper': isFavorites,
+  }]);
 
   function handlerMouseEnter() {
     setCurrentOffer(offer);
   }
+
   function handlerMouseLeave() {
     setCurrentOffer(null);
+  }
+
+  function changeFavorite(favarite: boolean) {
+    // eslint-disable-next-line no-console
+    console.log('Значение isFavfrinte изменилось', favarite);
   }
 
   return (
@@ -35,19 +50,19 @@ function PlaceCard({offer, isCities, setCurrentOffer}: Props): JSX.Element {
           <img
             className="place-card__image"
             src={previewImage}
-            width={isCities ? '260' : '150'}
-            height={isCities ? '200' : '110'}
+            width={!isFavorites ? '260' : '150'}
+            height={!isFavorites ? '200' : '110'}
             alt="Place image"
           />
         </Link>
       </div>
-      <div className={classNames(['place-card__info', {'favorites__card-info': !isCities}])}>
+      <div className={classNames(['place-card__info', {'favorites__card-info': isFavorites}])}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <FavoriteButton isFavorite={isFavorite}/>
+          <FavoriteButton isFavorite={isFavorite} onToggleFavorite={changeFavorite}/>
         </div>
         <RatingView rating={rating}/>
         <h2 className="place-card__name">

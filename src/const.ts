@@ -23,6 +23,10 @@ const enum AuthStatus {
 const URL_MARKER_CURRENT = 'img/pin-active.svg';
 const URL_MARKER_DEFAULT = 'img/pin.svg';
 const QUERY_PARAMETER = 'slug';
+const FAVORITES = 'favorites';
+const NEAR_PLACES = 'near-places';
+const CITIES = 'cities';
+const OFFER = 'offer';
 
 export {
   Cities,
@@ -31,4 +35,8 @@ export {
   URL_MARKER_CURRENT,
   URL_MARKER_DEFAULT,
   QUERY_PARAMETER,
+  FAVORITES,
+  NEAR_PLACES,
+  CITIES,
+  OFFER,
 };

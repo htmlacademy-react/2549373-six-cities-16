@@ -6,7 +6,7 @@ export type Location = {
   zoom: number;
 }
 
-export type Offer = {
+export type OfferType = {
   id: string;
   title: string;
   type: string;
@@ -19,4 +19,4 @@ export type Offer = {
   previewImage: string;
 }
 
-export type Offers = Offer[];
+export type Offers = OfferType[];

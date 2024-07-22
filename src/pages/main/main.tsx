@@ -5,8 +5,8 @@ import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
 import {groupBy} from '../../functions';
 import {Nullable} from '../../types/globals';
-import {Offer, Offers} from '../../types/offers';
-import {Cities, QUERY_PARAMETER} from '../../const';
+import {Offers, OfferType} from '../../types/offers';
+import {CITIES, Cities, QUERY_PARAMETER} from '../../const';
 import Tabs from '../../components/tabs/tabs';
 import {CityName} from '../../types/city';
 import SortDropdown from '../../components/sort-dropdown/sort-dropdown.tsx';
@@ -32,11 +32,11 @@ function Main({ offers }: Props): JSX.Element {
   }, [slugParam]);
 
   useEffect(() => {
-    const offersByGroup: Record<string, Offer[]> = groupBy(offers, (offer: Offer) => offer.city.name);
+    const offersByGroup: Record<string, Offers> = groupBy(offers, (offer: OfferType) => offer.city.name);
     setCityOffers(offersByGroup[cityName]?.slice(0, 5) || []);
   }, [cityName, offers]);
 
-  const [currentOffer, setCurrentOffer] = useState<Nullable<Offer>>(null);
+  const [currentOffer, setCurrentOffer] = useState<Nullable<OfferType>>(null);
 
   return (
     <div className="page page--gray page--main">
@@ -75,10 +75,10 @@ function Main({ offers }: Props): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{cityOffers.length} places to stay in {cityName}</b>
               <SortDropdown />
-              <PlacesList offers={cityOffers} changeCurrentOffer={setCurrentOffer} />
+              <PlacesList offers={cityOffers} changeCurrentOffer={setCurrentOffer} className={CITIES} />
             </section>
             <div className="cities__right-section">
-              {cityOffers.length > 0 && <Map oneCityOffers={cityOffers} selectedOffer={currentOffer} />}
+              {cityOffers.length > 0 && <Map oneCityOffers={cityOffers} selectedOffer={currentOffer} className={CITIES} />}
             </div>
           </div>
         </div>

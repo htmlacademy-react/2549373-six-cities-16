@@ -1,6 +1,6 @@
 import {JSX} from 'react';
 import Logo from '../../components/logo/logo';
-import {Offer, Offers} from '../../types/offers';
+import {Offers, OfferType} from '../../types/offers';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import {groupBy} from '../../functions';
 
@@ -9,9 +9,9 @@ type FavoritesProps = {
 };
 
 function Favorites({offers}: FavoritesProps): JSX.Element {
-  const favoriteOffers: Offer[] = offers.filter((offer: Offer) => offer.isFavorite);
+  const favoriteOffers: Offers = offers.filter((offer: OfferType) => offer.isFavorite);
 
-  const favoriteOffersByGroup: Record<string, Offer[]> = groupBy(favoriteOffers, (offer: Offer) => offer.city.name);
+  const favoriteOffersByGroup: Record<string, Offers> = groupBy(favoriteOffers, (offer: OfferType) => offer.city.name);
 
   return (
     <div className="page">

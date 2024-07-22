@@ -10,3 +10,9 @@ export function groupBy<T, K extends string | number | symbol>(list: T[], getKey
     return result;
   }, {} as Record<K, T[]>);
 }
+
+export const formatDate = (date: string): string => {
+  const options: Intl.DateTimeFormatOptions = { month: 'long', year: 'numeric' };
+  const formattedDate = new Date(date).toLocaleString('default', options);
+  return capitalizeFirstLetter(formattedDate.replace(' г.', ''));
+};
