@@ -10,30 +10,36 @@ import {CITIES, Cities, QUERY_PARAMETER} from '../../const';
 import Tabs from '../../components/tabs/tabs';
 import {CityName} from '../../types/city';
 import SortDropdown from '../../components/sort-dropdown/sort-dropdown.tsx';
+import {changeCity, setOffers} from '../../store/action.ts';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {offers as offersMock} from '../../mocks/offers.ts';
 
-type Props = {
-  offers: Offers;
-}
 
-function Main({ offers }: Props): JSX.Element {
+function Main(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const cityName = useAppSelector((state) => state.cityName);
+  const offers = useAppSelector((state) => state.offers);
   const [searchParams] = useSearchParams();
   const slugParam: string | null = searchParams.get(QUERY_PARAMETER);
-  const [cityName, setCityName] = useState<CityName>(
-    (slugParam && slugParam in Cities ? slugParam : Cities.Paris) as CityName
-  );
   const [cityOffers, setCityOffers] = useState<Offers>([]);
 
   useEffect(() => {
+    dispatch(setOffers(offersMock));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     if (slugParam && slugParam in Cities) {
-      setCityName(slugParam as CityName);
+      dispatch(changeCity(slugParam as CityName));
     } else {
-      setCityName(Cities.Paris);
+      dispatch(changeCity(Cities.Paris));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slugParam]);
 
   useEffect(() => {
     const offersByGroup: Record<string, Offers> = groupBy(offers, (offer: OfferType) => offer.city.name);
-    setCityOffers(offersByGroup[cityName]?.slice(0, 5) || []);
+    setCityOffers(offersByGroup[cityName] || []);
   }, [cityName, offers]);
 
   const [currentOffer, setCurrentOffer] = useState<Nullable<OfferType>>(null);

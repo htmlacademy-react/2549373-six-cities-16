@@ -1,16 +1,23 @@
-import {JSX} from 'react';
+import {JSX, useEffect} from 'react';
 import Logo from '../../components/logo/logo';
 import {Offers, OfferType} from '../../types/offers';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import {groupBy} from '../../functions';
+import {setOffers} from '../../store/action.ts';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {offers as offersMock} from '../../mocks/offers.ts';
 
-type FavoritesProps = {
-  offers: Offers;
-};
 
-function Favorites({offers}: FavoritesProps): JSX.Element {
+function Favorites(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const offers = useAppSelector((state) => state.offers);
+
+  useEffect(() => {
+    dispatch(setOffers(offersMock));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const favoriteOffers: Offers = offers.filter((offer: OfferType) => offer.isFavorite);
-
   const favoriteOffersByGroup: Record<string, Offers> = groupBy(favoriteOffers, (offer: OfferType) => offer.city.name);
 
   return (
