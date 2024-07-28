@@ -1,4 +1,4 @@
-import { JSX, ChangeEvent } from 'react';
+import { ChangeEvent, JSX } from 'react';
 
 type TextareaProps = {
   value: string;

@@ -1,7 +1,7 @@
 import {JSX, useEffect, useRef} from 'react';
 import 'leaflet/dist/leaflet.css';
 import {OfferType, Offers} from '../../types/offers.ts';
-import useMap from '../../hooks/useMap/useMap.tsx';
+import useMap from '../../hooks/use-map/use-map.tsx';
 import leaflet from 'leaflet';
 import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const.ts';
 import {Nullable} from '../../types/globals.ts';

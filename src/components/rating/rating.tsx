@@ -1,12 +1,12 @@
-import React, {ChangeEvent, JSX} from 'react';
-import {RatingTooltip} from '../../types/rating.ts';
+import React, { ChangeEvent, JSX } from 'react';
+import { RatingTooltip } from '../../types/rating.ts';
 
 type RatingProps = {
   rating: number | null;
   onChange: (rating: number) => void;
 };
 
-function Rating({rating, onChange}: RatingProps): JSX.Element {
+function Rating({ rating, onChange }: RatingProps): JSX.Element {
   const handleRatingChange = (event: ChangeEvent<HTMLInputElement>) => {
     onChange(Number(event.target.value));
   };

@@ -1,18 +1,39 @@
-import {JSX, useState} from 'react';
+import { JSX, useEffect } from 'react';
 import Logo from '../../components/logo/logo';
 import CommentForm from '../../components/comment-form/comment-form';
 import ReviewsList from '../../components/reviews-list/reviews-list.tsx';
-import {reviews} from '../../mocks/reviews.ts';
+import { reviews } from '../../mocks/reviews.ts';
 import Map from '../../components/map/map.tsx';
-import {nearbyOffers} from '../../mocks/offers.ts';
-import {Nullable} from '../../types/globals.ts';
+import { offers as offersMock } from '../../mocks/offers.ts';
 import PlacesList from '../../components/places-list/places-list.tsx';
-import {OfferType} from '../../types/offers.ts';
-import {NEAR_PLACES, OFFER} from '../../const.ts';
+import { OfferType } from '../../types/offers.ts';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { setOffers } from '../../store/action.ts';
+import { PageType } from '../../const.ts';
 
 function Offer(): JSX.Element {
-  const [currentOffer, setCurrentOffer] = useState<Nullable<OfferType>>(null);
-  const nearbyOffersSlice = nearbyOffers.slice(0, 3);
+  const dispatch = useAppDispatch();
+  const { id } = useParams();
+  const offersData = useAppSelector((state) => state.offers);
+  const currentOffer = offersData.find((offer: OfferType) => offer.id === id) ?? null;
+
+  const getNearbyOffers = (selectedOffer: OfferType, allOffers: OfferType[]): OfferType[] => {
+    if (!selectedOffer) {
+      return [];
+    }
+    return allOffers
+      .filter((otherOffer: OfferType) => otherOffer.city.name === selectedOffer.city.name && otherOffer.id !== selectedOffer.id)
+      .slice(0, 3);
+  };
+
+  useEffect(() => {
+    dispatch(setOffers(offersMock));
+  }, [dispatch]);
+
+  const nearbyOffers = currentOffer ? getNearbyOffers(currentOffer, offersData) : [];
+  const mapOffers = currentOffer ? [currentOffer, ...getNearbyOffers(currentOffer, offersData)] : [];
+
   return (
     <div className="page">
       <header className="header">
@@ -84,7 +105,7 @@ function Offer(): JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: '80%'}}></span>
+                  <span style={{ width: '80%' }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">4.8</span>
@@ -176,13 +197,13 @@ function Offer(): JSX.Element {
               </section>
             </div>
           </div>
-          {nearbyOffersSlice.length > 0 &&
-            <Map oneCityOffers={nearbyOffersSlice} selectedOffer={currentOffer} className={OFFER}/>}
+          {mapOffers.length > 0 &&
+            <Map oneCityOffers={mapOffers} selectedOffer={currentOffer} className={PageType.OFFER}/>}
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <PlacesList offers={nearbyOffersSlice} changeCurrentOffer={setCurrentOffer} className={NEAR_PLACES}/>
+            <PlacesList offers={nearbyOffers} className={PageType.NEAR_PLACES}/>
           </section>
         </div>
       </main>

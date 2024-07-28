@@ -1,32 +1,31 @@
-import {JSX, useEffect, useState} from 'react';
-import {useSearchParams} from 'react-router-dom';
+import { JSX, useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import PlacesList from '../../components/places-list/places-list';
 import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
-import {groupBy} from '../../functions';
-import {Nullable} from '../../types/globals';
-import {Offers, OfferType} from '../../types/offers';
-import {CITIES, Cities, QUERY_PARAMETER} from '../../const';
+import { Nullable } from '../../types/globals';
+import { OfferType } from '../../types/offers';
+import { Cities, PageType, QUERY_PARAMETER } from '../../const';
 import Tabs from '../../components/tabs/tabs';
-import {CityName} from '../../types/city';
-import SortDropdown from '../../components/sort-dropdown/sort-dropdown.tsx';
-import {changeCity, setOffers} from '../../store/action.ts';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {offers as offersMock} from '../../mocks/offers.ts';
-
+import { CityName } from '../../types/city';
+import { changeCity, setOffers } from '../../store/action.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { offers as offersMock } from '../../mocks/offers.ts';
+import SortingOptions from '../../components/sorting-options/sorting-options';
+import useSortedCityOffers from '../../hooks/use-sorted-city-offers/use-sorted-city-offers.tsx';
+import {State} from '../../types/state.ts';
 
 function Main(): JSX.Element {
   const dispatch = useAppDispatch();
-  const cityName = useAppSelector((state) => state.cityName);
-  const offers = useAppSelector((state) => state.offers);
+  const cityName = useAppSelector<CityName>((state: State) => state.cityName);
   const [searchParams] = useSearchParams();
-  const slugParam: string | null = searchParams.get(QUERY_PARAMETER);
-  const [cityOffers, setCityOffers] = useState<Offers>([]);
+  const slugParam: Nullable<string> = searchParams.get(QUERY_PARAMETER);
+  const cityOffers = useSortedCityOffers(cityName);
+  const [currentOffer, setCurrentOffer] = useState<Nullable<OfferType>>(null);
 
   useEffect(() => {
     dispatch(setOffers(offersMock));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (slugParam && slugParam in Cities) {
@@ -34,15 +33,7 @@ function Main(): JSX.Element {
     } else {
       dispatch(changeCity(Cities.Paris));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slugParam]);
-
-  useEffect(() => {
-    const offersByGroup: Record<string, Offers> = groupBy(offers, (offer: OfferType) => offer.city.name);
-    setCityOffers(offersByGroup[cityName] || []);
-  }, [cityName, offers]);
-
-  const [currentOffer, setCurrentOffer] = useState<Nullable<OfferType>>(null);
+  }, [slugParam, dispatch]);
 
   return (
     <div className="page page--gray page--main">
@@ -80,11 +71,11 @@ function Main(): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{cityOffers.length} places to stay in {cityName}</b>
-              <SortDropdown />
-              <PlacesList offers={cityOffers} changeCurrentOffer={setCurrentOffer} className={CITIES} />
+              <SortingOptions />
+              <PlacesList offers={cityOffers} onChangeCurrentOffer={setCurrentOffer} className={PageType.CITIES} />
             </section>
             <div className="cities__right-section">
-              {cityOffers.length > 0 && <Map oneCityOffers={cityOffers} selectedOffer={currentOffer} className={CITIES} />}
+              {cityOffers.length > 0 && <Map oneCityOffers={cityOffers} selectedOffer={currentOffer} className={PageType.CITIES} />}
             </div>
           </div>
         </div>

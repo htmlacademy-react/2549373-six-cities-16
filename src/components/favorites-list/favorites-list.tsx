@@ -1,20 +1,21 @@
-import {JSX, useState} from 'react';
+import { JSX, useState } from 'react';
 import PlaceCard from '../place-card/place-card';
-import {Nullable} from '../../types/globals';
-import {Offers, OfferType} from '../../types/offers.ts';
-import {FAVORITES} from '../../const.ts';
+import { Nullable } from '../../types/globals';
+import { Offers, OfferType } from '../../types/offers.ts';
+import { PageType } from '../../const.ts';
 
 type FavoritesListProps = {
   favoriteOffersByGroup: Partial<Record<string, Offers>>;
 };
 
-function FavoritesList({favoriteOffersByGroup}: FavoritesListProps): JSX.Element {
+function FavoritesList({ favoriteOffersByGroup }: FavoritesListProps): JSX.Element {
   const [, setCurrentOffer] = useState<Nullable<OfferType>>(null);
+
   function handlerCurrentOffer(offer: Nullable<OfferType>) {
     if (!offer) {
       setCurrentOffer(null);
     } else {
-      setCurrentOffer({...offer});
+      setCurrentOffer({ ...offer });
     }
   }
 
@@ -31,7 +32,11 @@ function FavoritesList({favoriteOffersByGroup}: FavoritesListProps): JSX.Element
           </div>
           <div className="favorites__places">
             {offers && offers.map((offer) => (
-              <PlaceCard key={offer.id} offer={offer} setCurrentOffer={handlerCurrentOffer} className={FAVORITES}/>
+              <PlaceCard
+                key={offer.id} offer={offer}
+                onCurrentOfferChange={handlerCurrentOffer}
+                className={PageType.FAVORITES}
+              />
             ))}
           </div>
         </li>
