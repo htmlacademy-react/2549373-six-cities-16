@@ -1,40 +1,40 @@
-import {JSX} from 'react';
-import {capitalizeFirstLetter} from '../../functions';
+import { JSX } from 'react';
+import { capitalizeFirstLetter } from '../../functions';
 import CardMarkPremium from '../card-mark-premium/card-mark-premium';
-import {OfferType} from '../../types/offers';
+import { OfferType } from '../../types/offers';
 import classNames from 'classnames';
 import FavoriteButton from '../favorite-button/favorite-button';
-import {Nullable} from '../../types/globals';
-import {Link} from 'react-router-dom';
+import { Nullable } from '../../types/globals';
+import { Link } from 'react-router-dom';
 import RatingView from '../rating-view/rating-view';
-import {AppRoute, CITIES, FAVORITES, NEAR_PLACES} from '../../const.ts';
+import { AppRoute, PageType, } from '../../const.ts';
 
 type Props = {
   offer: OfferType;
-  setCurrentOffer: (offer: Nullable<OfferType>) => void;
+  onCurrentOfferChange: (offer: Nullable<OfferType>) => void;
   className: string;
 }
 
-function PlaceCard({offer, setCurrentOffer, className}: Props): JSX.Element {
-  const {id, previewImage, price, type, title, isPremium, isFavorite, rating} = offer;
-  const isFavorites: boolean = className === FAVORITES;
+function PlaceCard({ offer, onCurrentOfferChange, className }: Props): JSX.Element {
+  const { id, previewImage, price, type, title, isPremium, isFavorite, rating } = offer;
+  const isFavorites: boolean = className === PageType.FAVORITES;
   const classesArticle = classNames(['place-card', {
-    'cities__card': className === CITIES,
-    'near-places__card': className === NEAR_PLACES,
+    'cities__card': className === PageType.CITIES,
+    'near-places__card': className === PageType.NEAR_PLACES,
     'favorites__card': isFavorites,
   }]);
   const classesImageWrapper = classNames(['place-card__image-wrapper', {
-    'cities__image-wrapper': className === CITIES,
-    'near-places__image-wrapper': className === NEAR_PLACES,
+    'cities__image-wrapper': className === PageType.CITIES,
+    'near-places__image-wrapper': className === PageType.NEAR_PLACES,
     'favorites__image-wrapper': isFavorites,
   }]);
 
   function handlerMouseEnter() {
-    setCurrentOffer(offer);
+    onCurrentOfferChange(offer);
   }
 
   function handlerMouseLeave() {
-    setCurrentOffer(null);
+    onCurrentOfferChange(null);
   }
 
   function changeFavorite(favarite: boolean) {
@@ -56,7 +56,7 @@ function PlaceCard({offer, setCurrentOffer, className}: Props): JSX.Element {
           />
         </Link>
       </div>
-      <div className={classNames(['place-card__info', {'favorites__card-info': isFavorites}])}>
+      <div className={classNames(['place-card__info', { 'favorites__card-info': isFavorites }])}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
