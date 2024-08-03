@@ -2,7 +2,13 @@ import { Offers } from '../types/offers.ts';
 import { CityName } from '../types/city.ts';
 import { AuthStatus, Cities, SortOptionValue } from '../const.ts';
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, loadOffers, setOffersDataLoadingStatus, setSortOption } from './action.ts';
+import {
+  changeCity,
+  loadOffers,
+  requireAuthorization,
+  setOffersDataLoadingStatus,
+  setSortOption
+} from './action.ts';
 import { SortOptionValueType } from '../types/sort.ts';
 
 type InitialState = {
@@ -34,6 +40,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });
 
