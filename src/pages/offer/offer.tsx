@@ -1,19 +1,16 @@
-import { JSX, useEffect } from 'react';
+import { JSX } from 'react';
 import Logo from '../../components/logo/logo';
 import CommentForm from '../../components/comment-form/comment-form';
 import ReviewsList from '../../components/reviews-list/reviews-list.tsx';
 import { reviews } from '../../mocks/reviews.ts';
 import Map from '../../components/map/map.tsx';
-import { offers as offersMock } from '../../mocks/offers.ts';
 import PlacesList from '../../components/places-list/places-list.tsx';
 import { OfferType } from '../../types/offers.ts';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setOffers } from '../../store/action.ts';
+import { useAppSelector } from '../../hooks';
 import { PageType } from '../../const.ts';
 
 function Offer(): JSX.Element {
-  const dispatch = useAppDispatch();
   const { id } = useParams();
   const offersData = useAppSelector((state) => state.offers);
   const currentOffer = offersData.find((offer: OfferType) => offer.id === id) ?? null;
@@ -26,10 +23,6 @@ function Offer(): JSX.Element {
       .filter((otherOffer: OfferType) => otherOffer.city.name === selectedOffer.city.name && otherOffer.id !== selectedOffer.id)
       .slice(0, 3);
   };
-
-  useEffect(() => {
-    dispatch(setOffers(offersMock));
-  }, [dispatch]);
 
   const nearbyOffers = currentOffer ? getNearbyOffers(currentOffer, offersData) : [];
   const mapOffers = currentOffer ? [currentOffer, ...getNearbyOffers(currentOffer, offersData)] : [];

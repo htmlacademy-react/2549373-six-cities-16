@@ -8,12 +8,11 @@ import { OfferType } from '../../types/offers';
 import { Cities, PageType, QUERY_PARAMETER } from '../../const';
 import Tabs from '../../components/tabs/tabs';
 import { CityName } from '../../types/city';
-import { changeCity, setOffers } from '../../store/action.ts';
+import { changeCity } from '../../store/action.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { offers as offersMock } from '../../mocks/offers.ts';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import useSortedCityOffers from '../../hooks/use-sorted-city-offers/use-sorted-city-offers.tsx';
-import {State} from '../../types/state.ts';
+import { State } from '../../types/state.ts';
 
 function Main(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -22,10 +21,6 @@ function Main(): JSX.Element {
   const slugParam: Nullable<string> = searchParams.get(QUERY_PARAMETER);
   const cityOffers = useSortedCityOffers(cityName);
   const [currentOffer, setCurrentOffer] = useState<Nullable<OfferType>>(null);
-
-  useEffect(() => {
-    dispatch(setOffers(offersMock));
-  }, [dispatch]);
 
   useEffect(() => {
     if (slugParam && slugParam in Cities) {
