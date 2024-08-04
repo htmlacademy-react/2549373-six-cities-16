@@ -5,3 +5,7 @@ export type User = {
   email: string;
   token: string;
 }
+
+export type UserData = {
+  id: number;
+} & Pick<User, 'email' | 'token'>;

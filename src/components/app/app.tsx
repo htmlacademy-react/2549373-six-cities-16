@@ -8,14 +8,14 @@ import Offer from '../../pages/offer/offer';
 import { PrivateRoute, PublicRoute } from '../access-route/access-route';
 import { AppRoute, AuthStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { isOffersDataLoadingSelector } from '../../store/selectors.ts';
+import { authorizationStatusSelector, isOffersDataLoadingSelector } from '../../store/selectors.ts';
 import LoadingSpinner from '../loading-spinner/loading-spinner.tsx';
 
 function App(): JSX.Element {
-  const currentStatus: AuthStatus = AuthStatus.Auth;
+  const authorizationStatus = useAppSelector(authorizationStatusSelector);
   const isOffersDataLoading = useAppSelector(isOffersDataLoadingSelector);
-
-  if (isOffersDataLoading) {
+  const isLoading = authorizationStatus === AuthStatus.Unknown || isOffersDataLoading;
+  if (isLoading) {
     return (
       <LoadingSpinner/>
     );
@@ -26,13 +26,13 @@ function App(): JSX.Element {
       <Routes>
         <Route path={AppRoute.Main} element={<Main/>}/>
         <Route path={AppRoute.Login} element={
-          <PublicRoute status={currentStatus}>
+          <PublicRoute>
             <Login/>
           </PublicRoute>
         }
         />
         <Route path={AppRoute.Favorites} element={
-          <PrivateRoute status={currentStatus}>
+          <PrivateRoute>
             <Favorites/>
           </PrivateRoute>
         }
