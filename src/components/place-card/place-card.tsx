@@ -37,7 +37,7 @@ function PlaceCard({ offer, onCurrentOfferChange, className }: Props): JSX.Eleme
     onCurrentOfferChange(null);
   }
 
-  function changeFavorite(favarite: boolean) {
+  function handleToggleFavorite(favarite: boolean) {
     // eslint-disable-next-line no-console
     console.log('Значение isFavfrinte изменилось', favarite);
   }
@@ -62,7 +62,7 @@ function PlaceCard({ offer, onCurrentOfferChange, className }: Props): JSX.Eleme
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <FavoriteButton isFavorite={isFavorite} onToggleFavorite={changeFavorite}/>
+          <FavoriteButton isFavorite={isFavorite} onToggleFavorite={handleToggleFavorite}/>
         </div>
         <RatingView rating={rating}/>
         <h2 className="place-card__name">

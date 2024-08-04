@@ -1,4 +1,4 @@
-import {City} from './city.ts';
+import { City } from './city.ts';
 
 export type Location = {
   latitude: number;
@@ -6,7 +6,13 @@ export type Location = {
   zoom: number;
 }
 
-export type OfferType = {
+export type Host = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+}
+
+export type FullOffer = {
   id: string;
   title: string;
   type: string;
@@ -16,7 +22,16 @@ export type OfferType = {
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
-  previewImage: string;
+  description: string;
+  bedrooms: number;
+  goods: [string];
+  host: Host;
+  images: [string];
+  maxAdults: number;
 }
+
+export type OfferType = {
+  previewImage: string;
+} & Omit<FullOffer, 'description' | 'bedrooms' | 'goods' | 'host' | 'images' | 'maxAdults'>
 
 export type Offers = OfferType[];

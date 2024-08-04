@@ -8,4 +8,6 @@ export type Review = {
   rating: number;
 }
 
+export type Comment = Pick<Review, 'comment' | 'rating'>
+
 export type Reviews = Review[];

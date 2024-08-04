@@ -12,7 +12,13 @@ const enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Offer = '/offer/:id',
+  NotFound = '/not-found'
 }
+
+export const RouteParams = {
+  Id: ':id',
+  OfferId: ':offerId',
+} as const;
 
 const enum AuthStatus {
   Auth = 'AUTH',
@@ -51,6 +57,8 @@ const SORT_OPTIONS = [
 enum APIRoute {
   Login = '/login',
   Offers = '/offers',
+  Offer = '/offers/:id',
+  Comments = '/comments/:offerId',
   Logout = '/logout',
 }
 
