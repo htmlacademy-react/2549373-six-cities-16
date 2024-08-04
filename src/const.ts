@@ -20,8 +20,12 @@ const enum AuthStatus {
   Unknown = 'UNKNOWN',
 }
 
-const URL_MARKER_CURRENT = 'img/pin-active.svg';
-const URL_MARKER_DEFAULT = 'img/pin.svg';
+const UrlMarker = {
+  CURRENT: 'img/pin-active.svg',
+  DEFAULT: 'img/pin.svg',
+} as const;
+
+
 const QUERY_PARAMETER = 'slug';
 const PageType = {
   OFFER: 'offer',
@@ -44,6 +48,9 @@ const SORT_OPTIONS = [
   { id: 4, title: 'Top rated first', value: SortOptionValue.TopRated },
 ] as const;
 
+enum APIRoute {
+  Offers = '/offers',
+}
 
 export {
   Cities,
@@ -51,8 +58,8 @@ export {
   AuthStatus,
   SortOptionValue,
   PageType,
-  URL_MARKER_CURRENT,
-  URL_MARKER_DEFAULT,
+  UrlMarker,
   QUERY_PARAMETER,
   SORT_OPTIONS,
+  APIRoute
 };

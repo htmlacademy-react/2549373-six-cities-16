@@ -3,14 +3,25 @@ import 'leaflet/dist/leaflet.css';
 import {OfferType, Offers} from '../../types/offers.ts';
 import useMap from '../../hooks/use-map/use-map.tsx';
 import leaflet from 'leaflet';
-import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const.ts';
 import {Nullable} from '../../types/globals.ts';
+import { UrlMarker } from '../../const.ts';
 
 type MapProps = {
   oneCityOffers: Offers;
   selectedOffer: Nullable<OfferType>;
   className: string;
 }
+
+const defaultCustomIcon = leaflet.icon({
+  iconUrl: UrlMarker.DEFAULT,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
+const currentCustomIcon = leaflet.icon({
+  iconUrl: UrlMarker.CURRENT,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
 
 function Map({ oneCityOffers, selectedOffer, className }: MapProps): JSX.Element {
   const mapRef = useRef(null);
@@ -19,18 +30,6 @@ function Map({ oneCityOffers, selectedOffer, className }: MapProps): JSX.Element
 
   useEffect(() => {
     if (map) {
-      const defaultCustomIcon = leaflet.icon({
-        iconUrl: URL_MARKER_DEFAULT,
-        iconSize: [40, 40],
-        iconAnchor: [20, 40],
-      });
-
-      const currentCustomIcon = leaflet.icon({
-        iconUrl: URL_MARKER_CURRENT,
-        iconSize: [40, 40],
-        iconAnchor: [20, 40],
-      });
-
       oneCityOffers.forEach((offer) => {
         leaflet
           .marker({
