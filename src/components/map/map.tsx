@@ -1,14 +1,14 @@
 import {JSX, useEffect, useRef} from 'react';
 import 'leaflet/dist/leaflet.css';
-import {OfferType, Offers} from '../../types/offers.ts';
+import { OfferType, FullOffer } from '../../types/offers.ts';
 import useMap from '../../hooks/use-map/use-map.tsx';
 import leaflet from 'leaflet';
 import {Nullable} from '../../types/globals.ts';
 import { UrlMarker } from '../../const.ts';
 
 type MapProps = {
-  oneCityOffers: Offers;
-  selectedOffer: Nullable<OfferType>;
+  oneCityOffers: (OfferType | FullOffer)[];
+  selectedOffer: Nullable<OfferType | FullOffer>;
   className: string;
 }
 

@@ -1,18 +1,27 @@
-import { JSX, useState, ChangeEvent, FormEvent } from 'react';
+import { ChangeEvent, FormEvent, JSX, useState } from 'react';
 import Rating from '../rating/rating';
 import Textarea from '../textarea/textarea';
+import { Comment } from '../../types/reviews.ts';
 
-function CommentForm(): JSX.Element {
+type CommentFormProps = {
+  onSubmitCommentForm: (commentData: Comment) => void;
+}
+
+function CommentForm({ onSubmitCommentForm }: CommentFormProps): JSX.Element {
   const [rating, setRating] = useState<number | null>(null);
   const [review, setReview] = useState<string>('');
-
+  const isSubmitDisabled = rating === null || review.length < 50;
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // eslint-disable-next-line no-console
-    console.log('handleSubmit', {rating, review});
+    if (isSubmitDisabled) {
+      return;
+    }
+    const newComment: Comment = {
+      comment: review,
+      rating
+    };
+    onSubmitCommentForm(newComment);
   };
-
-  const isSubmitDisabled = rating === null || review.length < 50;
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
