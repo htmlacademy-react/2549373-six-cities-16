@@ -1,62 +1,54 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.ts';
-import { AxiosError, AxiosInstance } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import { FullOffer, Offers } from '../types/offers.ts';
-import { APIRoute, AppRoute, AuthStatus, RouteParams } from '../const.ts';
-import {
-  loadComments,
-  loadNearby,
-  loadOffer,
-  loadOffers,
-  redirectToRoute,
-  requireAuthorization,
-  setOffersDataLoadingStatus
-} from './action.ts';
+import { AuthStatus, Endpoint, NOT_FOUND_ERROR, RouteParams } from '../const.ts';
 import { AuthData } from '../types/auth-data.ts';
 import { UserData } from '../types/user.ts';
 import { dropToken, saveToken } from '../services/token.ts';
-import { Reviews } from '../types/reviews.ts';
+import { Review, Reviews } from '../types/reviews.ts';
 import { StatusCodes } from 'http-status-codes';
 
-
-export const fetchOffersAction = createAsyncThunk<void, undefined, {
+export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/fetchOffers',
-  async (_arg, { dispatch, extra: api }) => {
-    dispatch(setOffersDataLoadingStatus(true));
-    const { data } = await api.get<Offers>(APIRoute.Offers);
-    dispatch(setOffersDataLoadingStatus(false));
-    dispatch(loadOffers(data));
+  'offers/fetchOffers',
+  async (_arg, { extra: api }) => {
+    const { data } = await api.get<Offers>(Endpoint.Offers);
+    return data;
   }
 );
 
-export const fetchOfferAction = createAsyncThunk<void, string, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'data/fetchOffers',
-  async (id, { dispatch, extra: api }) => {
-    dispatch(setOffersDataLoadingStatus(true));
+export const fetchOfferAction = createAsyncThunk<
+  { offer: FullOffer; nearby: Offers; comments: Reviews },
+  string,
+  {
+    rejectValue: string;
+    extra: AxiosInstance;
+  }
+>(
+  'offers/fetchOffer',
+  async (id, { extra: api, rejectWithValue }) => {
     try {
       const [offerResponse, nearbyResponse, commentsResponse] = await Promise.all([
-        api.get<FullOffer>(APIRoute.Offer.replace(RouteParams.Id, id)),
-        api.get<Offers>(`${APIRoute.Offer.replace(RouteParams.Id, id)}/nearby`),
-        api.get<Reviews>(APIRoute.Comments.replace(RouteParams.OfferId, id))
+        api.get<FullOffer>(Endpoint.Offer.replace(RouteParams.Id, id)),
+        api.get<Offers>(`${Endpoint.Offer.replace(RouteParams.Id, id)}/nearby`),
+        api.get<Reviews>(Endpoint.Comments.replace(RouteParams.OfferId, id)),
       ]);
-      dispatch(setOffersDataLoadingStatus(false));
 
-      dispatch(loadOffer(offerResponse.data));
-      dispatch(loadNearby(nearbyResponse.data));
-      dispatch(loadComments(commentsResponse.data));
+      return {
+        offer: offerResponse.data,
+        nearby: nearbyResponse.data,
+        comments: commentsResponse.data,
+      };
     } catch (error) {
-      if (error instanceof AxiosError && error.response?.status === StatusCodes.NOT_FOUND) {
-        dispatch(setOffersDataLoadingStatus(false));
-        dispatch(redirectToRoute(AppRoute.NotFound));
+      if (axios.isAxiosError(error) && error.response?.status === StatusCodes.NOT_FOUND) {
+        return rejectWithValue(NOT_FOUND_ERROR);
       }
+      // Если ошибка не 404 или это не ошибка Axios, пробрасываем её дальше
+      throw error;
     }
   }
 );
@@ -66,45 +58,39 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'user/checkAuth',
-  async (_arg, { dispatch, extra: api }) => {
-    try {
-      await api.get(APIRoute.Login);
-      dispatch(requireAuthorization(AuthStatus.Auth));
-    } catch {
-      dispatch(requireAuthorization(AuthStatus.NoAuth));
-    }
+  'auth/checkAuth',
+  async (_arg, { extra: api }) => {
+    await api.get(Endpoint.Login); // Если запрос прошел, ничего не возвращаем, статус будет обрабатываться в extraReducers
   },
 );
 
-export const loginAction = createAsyncThunk<void, AuthData, {
+export const loginAction = createAsyncThunk<AuthStatus, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'user/login',
-  async ({ login: email, password }, { dispatch, extra: api }) => {
-    const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email, password });
+  'auth/login',
+  async ({ login: email, password }, { extra: api }) => {
+    const { data: { token } } = await api.post<UserData>(Endpoint.Login, { email, password });
     saveToken(token);
-    dispatch(requireAuthorization(AuthStatus.Auth));
-    dispatch(redirectToRoute(AppRoute.Main));
+    return AuthStatus.Auth;
   },
 );
 
-export const logoutAction = createAsyncThunk<void, undefined, {
+export const logoutAction = createAsyncThunk<AuthStatus, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'user/logout',
-  async (_arg, { dispatch, extra: api }) => {
-    await api.delete(APIRoute.Logout);
+  'auth/logout',
+  async (_arg, { extra: api }) => {
+    await api.delete(Endpoint.Logout);
     dropToken();
-    dispatch(requireAuthorization(AuthStatus.NoAuth));
+    return AuthStatus.NoAuth;
   },
 );
 
-export const addCommentAction = createAsyncThunk<void, {
+export const addCommentAction = createAsyncThunk<Review, {
   id: string;
   dataComment: { comment: string; rating: number };
 }, {
@@ -112,14 +98,9 @@ export const addCommentAction = createAsyncThunk<void, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/addComment',
-  async ({ id, dataComment }, { dispatch, extra: api }) => {
-    dispatch(setOffersDataLoadingStatus(true));
-    const addedComment = await api.post<Reviews>(APIRoute.Comments.replace(RouteParams.OfferId, id), dataComment);
-    const { data } = await api.get<Reviews>(APIRoute.Comments.replace(RouteParams.OfferId, id));
-    dispatch(setOffersDataLoadingStatus(false));
-    if(addedComment?.data){
-      dispatch(loadComments(data));
-    }
+  'comments/addComment',
+  async ({ id, dataComment }, { extra: api }) => {
+    const { data } = await api.post<Review>(Endpoint.Comments.replace(RouteParams.OfferId, id), dataComment);
+    return data;
   }
 );

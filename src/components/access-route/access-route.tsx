@@ -3,7 +3,7 @@ import {ReactNode} from 'react';
 import LoadingSpinner from '../loading-spinner/loading-spinner';
 import {AppRoute, AuthStatus} from '../../const';
 import { useAppSelector } from '../../hooks';
-import { authorizationStatusSelector } from '../../store/selectors.ts';
+import { authorizationStatusSelector } from '../../store/selectors/auth/auth.ts';
 
 export type AccessRouteProps = {
   children: ReactNode;

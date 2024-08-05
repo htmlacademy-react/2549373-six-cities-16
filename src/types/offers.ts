@@ -1,4 +1,5 @@
 import { City } from './city.ts';
+import { Reviews } from './reviews.ts';
 
 export type Location = {
   latitude: number;
@@ -35,3 +36,9 @@ export type OfferType = {
 } & Omit<FullOffer, 'description' | 'bedrooms' | 'goods' | 'host' | 'images' | 'maxAdults'>
 
 export type Offers = OfferType[];
+
+export type OfferDetails = {
+  offer: FullOffer;
+  nearby: Offers;
+  comments: Reviews;
+};

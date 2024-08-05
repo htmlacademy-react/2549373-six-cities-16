@@ -3,6 +3,7 @@ import { useAppSelector } from '../index.ts';
 import { useEffect, useState } from 'react';
 import { groupBy } from '../../functions.ts';
 import { SortOptionValue } from '../../const.ts';
+import { CityName } from '../../types/city.ts';
 
 export const sortOffers = (offers: OfferType[], sortOption: SortOptionValue): OfferType[] => {
   switch (sortOption) {
@@ -17,9 +18,9 @@ export const sortOffers = (offers: OfferType[], sortOption: SortOptionValue): Of
   }
 };
 
-const useSortedCityOffers = (cityName: string): OfferType[] => {
-  const offers = useAppSelector((state) => state.offers);
-  const sortOption = useAppSelector((state) => state.sortOption);
+const useSortedCityOffers = (cityName: CityName): OfferType[] => {
+  const offers = useAppSelector((state) => state.offers.offers);
+  const sortOption = useAppSelector((state) => state.offers.sortOption);
   const [sortedOffers, setSortedOffers] = useState<OfferType[]>([]);
 
   useEffect(() => {

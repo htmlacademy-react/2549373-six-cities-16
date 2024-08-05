@@ -1,23 +1,23 @@
 const Cities = {
-  Paris: 'Paris',
-  Cologne: 'Cologne',
-  Brussels: 'Brussels',
-  Amsterdam: 'Amsterdam',
-  Hamburg: 'Hamburg',
-  Dusseldorf: 'Dusseldorf',
+  Paris: { id: 'paris', name: 'Paris' },
+  Cologne: { id: 'cologne', name: 'Cologne' },
+  Brussels: { id: 'brussels', name: 'Brussels' },
+  Amsterdam: { id: 'amsterdam', name: 'Amsterdam' },
+  Hamburg: { id: 'hamburg', name: 'Hamburg' },
+  Dusseldorf: { id: 'dusseldorf', name: 'Dusseldorf' },
 } as const;
 
 const enum AppRoute {
-  Main = '/',
+  Main = '/:cityId?',
   Login = '/login',
   Favorites = '/favorites',
   Offer = '/offer/:id',
-  NotFound = '/not-found'
 }
 
 export const RouteParams = {
   Id: ':id',
   OfferId: ':offerId',
+  CityId: ':cityId',
 } as const;
 
 const enum AuthStatus {
@@ -31,8 +31,6 @@ const UrlMarker = {
   DEFAULT: 'img/pin.svg',
 } as const;
 
-
-const QUERY_PARAMETER = 'slug';
 const PageType = {
   OFFER: 'offer',
   CITIES: 'cities',
@@ -54,13 +52,22 @@ const SORT_OPTIONS = [
   { id: 4, title: 'Top rated first', value: SortOptionValue.TopRated },
 ] as const;
 
-enum APIRoute {
+enum Endpoint {
   Login = '/login',
   Offers = '/offers',
   Offer = '/offers/:id',
   Comments = '/comments/:offerId',
   Logout = '/logout',
 }
+
+enum RequestStatus {
+  Idle = 'idle',
+  Loading = 'loading',
+  Success = 'success',
+  Failed = 'failed',
+}
+
+const NOT_FOUND_ERROR = 'NOT_FOUND_ERROR';
 
 export {
   Cities,
@@ -69,7 +76,8 @@ export {
   SortOptionValue,
   PageType,
   UrlMarker,
-  QUERY_PARAMETER,
   SORT_OPTIONS,
-  APIRoute
+  Endpoint,
+  RequestStatus,
+  NOT_FOUND_ERROR,
 };
