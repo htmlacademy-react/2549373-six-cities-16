@@ -10,7 +10,7 @@ type CommentFormProps = {
 function CommentForm({ onSubmitCommentForm }: CommentFormProps): JSX.Element {
   const [rating, setRating] = useState<number | null>(null);
   const [review, setReview] = useState<string>('');
-  const isSubmitDisabled = rating === null || review.length < 50;
+  const isSubmitDisabled = rating === null || review.length < 50 || review.length > 300;
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (isSubmitDisabled) {
