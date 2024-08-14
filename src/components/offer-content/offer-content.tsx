@@ -1,21 +1,27 @@
 import { JSX } from 'react';
 import { FullOffer } from '../../types/offers.ts';
-import { AuthStatus } from '../../const.ts';
-import { Comment, Reviews } from '../../types/reviews.ts';
+import { AppRoute } from '../../const.ts';
+import { Reviews } from '../../types/reviews.ts';
 import FavoriteButton from '../favorite-button/favorite-button.tsx';
 import OfferHost from '../offer-host/offer-host.tsx';
 import ReviewsList from '../reviews-list/reviews-list.tsx';
 import CommentForm from '../comment-form/comment-form.tsx';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { checkIsAuth } from '../../store/selectors/auth/auth.ts';
+import { toggleFavoriteStatusAction } from '../../store/api-actions.ts';
 
 type OfferContentProps = {
   offer: FullOffer;
-  authorizationStatus: AuthStatus;
   reviews: Reviews;
-  onCommentSubmit: (dataComment: Comment) => void;
 }
 
-function OfferContent({ offer, authorizationStatus, reviews, onCommentSubmit }: OfferContentProps): JSX.Element {
+function OfferContent({ offer, reviews}: OfferContentProps): JSX.Element {
+  const isAuth = useAppSelector(checkIsAuth);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const {
+    id,
     title,
     type,
     price,
@@ -27,16 +33,25 @@ function OfferContent({ offer, authorizationStatus, reviews, onCommentSubmit }: 
     host,
     maxAdults
   } = offer;
+  const roundedRating = Math.round(rating);
+
+  function handleToggleFavorite(newFavoriteStatus: boolean) {
+    if(!isAuth){
+      navigate(AppRoute.Login, {replace: true});
+      return;
+    }
+    dispatch(toggleFavoriteStatusAction({ id, status: Number(newFavoriteStatus) }));
+  }
 
   return (
     <>
       <div className="offer__name-wrapper">
         <h1 className="offer__name">{title}</h1>
-        <FavoriteButton isFavorite={isFavorite} onToggleFavorite={() => {}} pageType="offer"/>
+        <FavoriteButton isFavorite={isFavorite} onToggleFavorite={handleToggleFavorite} pageType="offer"/>
       </div>
       <div className="offer__rating rating">
-        <div className="offer__stars rating__stars">
-          <span style={{ width: `${rating * 20}%` }}></span>
+        <div className="offer__stars rating__stars">45454
+          <span style={{ width: `${roundedRating * 20}%` }}></span>
           <span className="visually-hidden">Rating</span>
         </div>
         <span className="offer__rating-value rating__value">{rating}</span>
@@ -61,9 +76,7 @@ function OfferContent({ offer, authorizationStatus, reviews, onCommentSubmit }: 
       <OfferHost host={host} description={description}/>
       <section className="offer__reviews reviews">
         {reviews && <ReviewsList reviews={reviews}/>}
-        {authorizationStatus === AuthStatus.Auth && (
-          <CommentForm onSubmitCommentForm={onCommentSubmit}/>
-        )}
+        {isAuth && <CommentForm />}
       </section>
     </>
   );

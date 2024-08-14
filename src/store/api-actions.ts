@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.ts';
 import axios, { AxiosInstance } from 'axios';
-import { FullOffer, Offers } from '../types/offers.ts';
+import { FullOffer, Offers, OfferType } from '../types/offers.ts';
 import { AuthStatus, Endpoint, NOT_FOUND_ERROR, RouteParams } from '../const.ts';
 import { AuthData } from '../types/auth-data.ts';
-import { UserData } from '../types/user.ts';
+import { User } from '../types/user.ts';
 import { dropToken, saveToken } from '../services/token.ts';
 import { Review, Reviews } from '../types/reviews.ts';
 import { StatusCodes } from 'http-status-codes';
@@ -47,33 +47,34 @@ export const fetchOfferAction = createAsyncThunk<
       if (axios.isAxiosError(error) && error.response?.status === StatusCodes.NOT_FOUND) {
         return rejectWithValue(NOT_FOUND_ERROR);
       }
-      // Если ошибка не 404 или это не ошибка Axios, пробрасываем её дальше
+
       throw error;
     }
   }
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, {
+export const checkAuthAction = createAsyncThunk<User, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'auth/checkAuth',
   async (_arg, { extra: api }) => {
-    await api.get(Endpoint.Login); // Если запрос прошел, ничего не возвращаем, статус будет обрабатываться в extraReducers
+    const { data } = await api.get<User>(Endpoint.Login);
+    return data;
   },
 );
 
-export const loginAction = createAsyncThunk<AuthStatus, AuthData, {
+export const loginAction = createAsyncThunk<User, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'auth/login',
   async ({ login: email, password }, { extra: api }) => {
-    const { data: { token } } = await api.post<UserData>(Endpoint.Login, { email, password });
-    saveToken(token);
-    return AuthStatus.Auth;
+    const { data} = await api.post<User>(Endpoint.Login, { email, password });
+    saveToken(data.token);
+    return data;
   },
 );
 
@@ -101,6 +102,33 @@ export const addCommentAction = createAsyncThunk<Review, {
   'comments/addComment',
   async ({ id, dataComment }, { extra: api }) => {
     const { data } = await api.post<Review>(Endpoint.Comments.replace(RouteParams.OfferId, id), dataComment);
+    return data;
+  }
+);
+
+export const toggleFavoriteStatusAction = createAsyncThunk<
+  OfferType,
+  { id: string; status: number },
+  { dispatch: AppDispatch; state: State; extra: AxiosInstance }
+>(
+  'favorites/toggleFavoriteStatus',
+  async ({ id, status }, { extra: api }) => {
+    const { data } = await api.post<OfferType>(
+      Endpoint.Favorite.replace(RouteParams.OfferId, id).replace(RouteParams.Status, String(status)),
+      { status }
+    );
+    return data;
+  }
+);
+
+export const fetchFavoritesAction = createAsyncThunk<
+  Offers,
+  undefined,
+  { dispatch: AppDispatch; state: State; extra: AxiosInstance }
+>(
+  'favorites/fetchFavorites',
+  async (_arg, { extra: api }) => {
+    const { data } = await api.get<Offers>(Endpoint.Favorites);
     return data;
   }
 );

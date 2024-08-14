@@ -1,9 +1,10 @@
-import { FormEvent, JSX, useRef } from 'react';
+import { FormEvent, JSX, useEffect, useRef } from 'react';
 import Header from '../../components/header/header.tsx';
 import { loginAction } from '../../store/api-actions.ts';
 import { useAppDispatch } from '../../hooks';
 import { toast } from 'react-toastify';
 import PageTitle from '../../components/page-title/page-title.tsx';
+import RandomCityLink from '../../components/random-city-link/random-city-link.tsx';
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const passwordPattern = /(?=.*\d)(?=.*[a-zA-Z])/;
@@ -16,6 +17,15 @@ function Login(): JSX.Element {
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
 
+  function clearFormFields() {
+    if (loginRef.current) {
+      loginRef.current.value = '';
+    }
+    if (passwordRef.current) {
+      passwordRef.current.value = '';
+    }
+  }
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -27,22 +37,31 @@ function Login(): JSX.Element {
       const isPasswordValid = isValidPassword(password);
 
       if (isLoginValid && isPasswordValid) {
-        dispatch(loginAction({ login: email, password }));
+        dispatch(loginAction({ login: email, password }))
+          .unwrap()
+          .then(() => {
+            clearFormFields();
+          })
+          .catch(() => {
+            toast.error('Ошибка сервера, попробуйте позже',{ position: 'top-center' });
+          });
       } else {
         if (!isLoginValid) {
-          toast.error('Неверный формат email');
+          toast.error('Неверный формат email',{ position: 'top-center' });
         }
         if (!isPasswordValid) {
-          toast.error('Пароль должен содержать как минимум одну цифру и одну латинскую букву и не должен содержать спецсимволы');
+          toast.error('Пароль должен содержать как минимум одну цифру и одну латинскую букву и не должен содержать спецсимволы',{ position: 'top-center' });
         }
       }
     }
   }
 
+
+  useEffect(() => () => clearFormFields(), []);
   return (
     <div className="page page--gray page--login">
-      <PageTitle title='6 cities: authorization' />
-      <Header />
+      <PageTitle title="6 cities: authorization"/>
+      <Header/>
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
@@ -71,13 +90,7 @@ function Login(): JSX.Element {
               <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
           </section>
-          <section className="locations locations--login locations--current">
-            <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
-            </div>
-          </section>
+          <RandomCityLink />
         </div>
       </main>
     </div>

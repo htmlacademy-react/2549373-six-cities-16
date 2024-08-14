@@ -1,7 +1,6 @@
-import { JSX, useState } from 'react';
+import { JSX } from 'react';
 import PlaceCard from '../place-card/place-card';
-import { Nullable } from '../../types/globals';
-import { Offers, OfferType } from '../../types/offers.ts';
+import { Offers, } from '../../types/offers.ts';
 import { PageType } from '../../const.ts';
 
 type FavoritesListProps = {
@@ -9,15 +8,6 @@ type FavoritesListProps = {
 };
 
 function FavoritesList({ favoriteOffersByGroup }: FavoritesListProps): JSX.Element {
-  const [, setCurrentOffer] = useState<Nullable<OfferType>>(null);
-
-  function handlerCurrentOffer(offer: Nullable<OfferType>) {
-    if (!offer) {
-      setCurrentOffer(null);
-    } else {
-      setCurrentOffer({ ...offer });
-    }
-  }
 
   return (
     <ul className="favorites__list">
@@ -34,7 +24,6 @@ function FavoritesList({ favoriteOffersByGroup }: FavoritesListProps): JSX.Eleme
             {offers && offers.map((offer) => (
               <PlaceCard
                 key={offer.id} offer={offer}
-                onCurrentOfferChange={handlerCurrentOffer}
                 className={PageType.FAVORITES}
               />
             ))}

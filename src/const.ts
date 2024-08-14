@@ -13,13 +13,6 @@ const enum AppRoute {
   Favorites = '/favorites',
   Offer = '/offer/:id',
 }
-
-export const RouteParams = {
-  Id: ':id',
-  OfferId: ':offerId',
-  CityId: ':cityId',
-} as const;
-
 const enum AuthStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -27,8 +20,8 @@ const enum AuthStatus {
 }
 
 const UrlMarker = {
-  CURRENT: 'img/pin-active.svg',
-  DEFAULT: 'img/pin.svg',
+  CURRENT: 'pin-active.svg',
+  DEFAULT: 'pin.svg',
 } as const;
 
 const PageType = {
@@ -58,7 +51,16 @@ enum Endpoint {
   Offer = '/offers/:id',
   Comments = '/comments/:offerId',
   Logout = '/logout',
+  Favorites = '/favorite',
+  Favorite = '/favorite/:offerId/:status',
 }
+
+export const RouteParams = {
+  Id: ':id',
+  OfferId: ':offerId',
+  CityId: ':cityId',
+  Status: ':status',
+} as const;
 
 enum RequestStatus {
   Idle = 'idle',

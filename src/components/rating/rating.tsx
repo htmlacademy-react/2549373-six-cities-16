@@ -4,9 +4,10 @@ import { RatingTooltip } from '../../types/rating.ts';
 type RatingProps = {
   rating: number | null;
   onChange: (rating: number) => void;
+  isDisabled: boolean;
 };
 
-function Rating({ rating, onChange }: RatingProps): JSX.Element {
+function Rating({ rating, onChange, isDisabled }: RatingProps): JSX.Element {
   const handleRatingChange = (event: ChangeEvent<HTMLInputElement>) => {
     onChange(Number(event.target.value));
   };
@@ -40,6 +41,7 @@ function Rating({ rating, onChange }: RatingProps): JSX.Element {
             type="radio"
             checked={rating === starNumber}
             onChange={handleRatingChange}
+            disabled={isDisabled}
           />
           <label
             htmlFor={`${starNumber}-stars`}

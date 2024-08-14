@@ -5,7 +5,7 @@ type RatingViewProps = {
 }
 
 function RatingView({rating}: RatingViewProps): JSX.Element {
-  const computedRating: string = `${rating * 20}%`;
+  const computedRating: string = `${Math.round(rating) * 20}%`;
   return (
     <div className="place-card__rating rating">
       <div className="place-card__stars rating__stars">

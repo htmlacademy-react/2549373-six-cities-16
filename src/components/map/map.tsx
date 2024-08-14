@@ -1,14 +1,14 @@
-import {JSX, useEffect, useRef} from 'react';
+import { JSX, useEffect, useRef } from 'react';
 import 'leaflet/dist/leaflet.css';
-import { OfferType, FullOffer } from '../../types/offers.ts';
+import { FullOffer, OfferType } from '../../types/offers.ts';
 import useMap from '../../hooks/use-map/use-map.tsx';
-import leaflet from 'leaflet';
-import {Nullable} from '../../types/globals.ts';
+import leaflet, { layerGroup, Marker } from 'leaflet';
 import { UrlMarker } from '../../const.ts';
+import { useAppSelector } from '../../hooks';
+import { State } from '../../types/state.ts';
 
 type MapProps = {
   oneCityOffers: (OfferType | FullOffer)[];
-  selectedOffer: Nullable<OfferType | FullOffer>;
   className: string;
 }
 
@@ -23,25 +23,36 @@ const currentCustomIcon = leaflet.icon({
   iconAnchor: [20, 40],
 });
 
-function Map({ oneCityOffers, selectedOffer, className }: MapProps): JSX.Element {
+function Map({ oneCityOffers, className }: MapProps): JSX.Element {
+  const selectedOffer = useAppSelector((state: State) => state.offers.currentOffer);
   const mapRef = useRef(null);
   const { city } = oneCityOffers[0];
   const map = useMap(mapRef, city);
 
   useEffect(() => {
     if (map) {
+      const markerLayer = layerGroup().addTo(map);
+
       oneCityOffers.forEach((offer) => {
-        leaflet
-          .marker({
+        const marker = new Marker(
+          {
             lat: offer.location.latitude,
             lng: offer.location.longitude,
-          }, {
-            icon: (offer.id === selectedOffer?.id)
-              ? currentCustomIcon
-              : defaultCustomIcon,
-          })
-          .addTo(map);
+          },
+          {
+            icon:
+              selectedOffer && offer.id === selectedOffer.id
+                ? currentCustomIcon
+                : defaultCustomIcon,
+          }
+        );
+
+        marker.addTo(markerLayer);
       });
+
+      return () => {
+        map.removeLayer(markerLayer);
+      };
     }
   }, [map, oneCityOffers, selectedOffer]);
 

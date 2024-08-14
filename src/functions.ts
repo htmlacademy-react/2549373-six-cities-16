@@ -11,8 +11,6 @@ export function groupBy<T, K extends string | number | symbol>(list: T[], getKey
   }, {} as Record<K, T[]>);
 }
 
-export const formatDate = (date: string): string => {
-  const options: Intl.DateTimeFormatOptions = { month: 'long', year: 'numeric' };
-  const formattedDate = new Date(date).toLocaleString('default', options);
-  return capitalizeFirstLetter(formattedDate.replace(' г.', ''));
-};
+export function formatDate(date: string): string {
+  return new Date(date).toLocaleString('en-US', { month: 'long', year: 'numeric' });
+}

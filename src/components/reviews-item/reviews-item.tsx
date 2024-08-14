@@ -8,7 +8,7 @@ interface ReviewItemProps {
 
 function ReviewItem({review}: ReviewItemProps): JSX.Element {
   const {user, rating, comment, date} = review;
-  const ratingPercentage = `${(rating / 5) * 100}%`;
+  const ratingPercentage = `${rating * 20}%`;
 
   return (
     <li className="reviews__item">
