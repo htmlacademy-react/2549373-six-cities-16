@@ -10,7 +10,12 @@ type CommentFormProps = {
 function CommentForm({ onSubmitCommentForm }: CommentFormProps): JSX.Element {
   const [rating, setRating] = useState<number | null>(null);
   const [review, setReview] = useState<string>('');
-  const isSubmitDisabled = rating === null || review.length < 50;
+  const isSubmitDisabled = rating === null || review.length < 50 || review.length > 300;
+
+  const resetForm = () => {
+    setRating(null);
+    setReview('');
+  };
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (isSubmitDisabled) {
@@ -21,6 +26,7 @@ function CommentForm({ onSubmitCommentForm }: CommentFormProps): JSX.Element {
       rating
     };
     onSubmitCommentForm(newComment);
+    resetForm();
   };
 
   return (
@@ -28,7 +34,7 @@ function CommentForm({ onSubmitCommentForm }: CommentFormProps): JSX.Element {
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
-      <Rating rating={rating} onChange={setRating} />
+      <Rating rating={rating} onChange={setRating}/>
       <Textarea
         value={review}
         onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setReview(event.target.value)}

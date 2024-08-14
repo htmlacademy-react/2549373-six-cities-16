@@ -1,28 +1,26 @@
-import {JSX} from 'react';
-import {Link, useSearchParams} from 'react-router-dom';
-import {AppRoute, Cities, QUERY_PARAMETER} from '../../const';
-import {CityName} from '../../types/city.ts';
+import { JSX } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import classNames from 'classnames';
+import { AppRoute, Cities, RouteParams } from '../../const';
+import { CityId } from '../../types/city.ts';
 
 function Tabs(): JSX.Element {
-  const cityEntries: CityName[] = Object.values(Cities);
-  const [searchParams] = useSearchParams();
-  const slugParam = searchParams.get(QUERY_PARAMETER) as CityName | null;
-
-  function getClasses(city: CityName): string {
-    return `locations__item-link tabs__item ${city === (slugParam ?? Cities.Paris) ? 'tabs__item--active' : ''}`;
-  }
+  const cityEntries = Object.values(Cities);
+  const { cityId } = useParams<{ cityId: CityId }>(); // Используем CityId для типизации параметра
 
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {cityEntries.map((city) => (
-            <li className="locations__item" key={city}>
+          {cityEntries.map(({ id, name }) => (
+            <li className="locations__item" key={id}>
               <Link
-                to={`${AppRoute.Main}?${QUERY_PARAMETER}=${city}`}
-                className={getClasses(city)}
+                to={AppRoute.Main.replace(RouteParams.CityId, id)}
+                className={classNames('locations__item-link', 'tabs__item', {
+                  'tabs__item--active': id === (cityId ?? Cities.Paris.id),
+                })}
               >
-                <span>{city}</span>
+                <span>{name}</span>
               </Link>
             </li>
           ))}

@@ -1,14 +1,14 @@
 import { JSX, useState } from 'react';
 import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setSortOption } from '../../store/action.ts';
 import { SortOption } from '../../types/sort.ts';
 import { SORT_OPTIONS, SortOptionValue } from '../../const.ts';
 import { State } from '../../types/state.ts';
+import { setSortOption } from '../../store/slices/offers/offers.ts';
 
 function SortingOptions(): JSX.Element {
   const dispatch = useAppDispatch();
-  const selectedOption = useAppSelector((state: State) => state.sortOption);
+  const selectedOption = useAppSelector((state: State) => state.offers.sortOption);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSortTypeClick = () => {
