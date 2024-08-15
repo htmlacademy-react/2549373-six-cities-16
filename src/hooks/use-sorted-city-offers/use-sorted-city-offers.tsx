@@ -1,6 +1,6 @@
 import { OfferType } from '../../types/offers.ts';
 import { useAppSelector } from '../index.ts';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { groupBy } from '../../functions.ts';
 import { SortOptionValue } from '../../const.ts';
 import { CityName } from '../../types/city.ts';
@@ -14,23 +14,19 @@ export const sortOffers = (offers: OfferType[], sortOption: SortOptionValue): Of
     case SortOptionValue.TopRated:
       return [...offers].sort((a, b) => b.rating - a.rating);
     default:
-      return offers; // Default: 'popular'
+      return offers;
   }
 };
 
 const useSortedCityOffers = (cityName: CityName): OfferType[] => {
   const offers = useAppSelector((state) => state.offers.offers);
   const sortOption = useAppSelector((state) => state.offers.sortOption);
-  const [sortedOffers, setSortedOffers] = useState<OfferType[]>([]);
 
-  useEffect(() => {
-    const offersByGroup = groupBy(offers, (offer: OfferType) => offer.city.name);
-    const cityOffers = offersByGroup[cityName] || [];
-    const sortedCityOffers = sortOffers(cityOffers, sortOption);
-    setSortedOffers(sortedCityOffers);
-  }, [cityName, offers, sortOption]);
+  const offersByGroup = useMemo(() => groupBy(offers, (offer: OfferType) => offer.city.name), [offers]);
+  const cityOffers = useMemo(() => offersByGroup[cityName] || [], [offersByGroup, cityName]);
+  const sortedCityOffers = useMemo(() => sortOffers(cityOffers, sortOption), [cityOffers, sortOption]);
 
-  return sortedOffers;
+  return sortedCityOffers;
 };
 
 export default useSortedCityOffers;

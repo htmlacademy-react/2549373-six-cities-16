@@ -3,12 +3,12 @@ import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { SortOption } from '../../types/sort.ts';
 import { SORT_OPTIONS, SortOptionValue } from '../../const.ts';
-import { State } from '../../types/state.ts';
 import { setSortOption } from '../../store/slices/offers/offers.ts';
+import { getSortOption } from '../../store/selectors/offers/offers.ts';
 
 function SortingOptions(): JSX.Element {
   const dispatch = useAppDispatch();
-  const selectedOption = useAppSelector((state: State) => state.offers.sortOption);
+  const selectedOption = useAppSelector(getSortOption);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSortTypeClick = () => {

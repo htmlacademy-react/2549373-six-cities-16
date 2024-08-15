@@ -4,9 +4,10 @@ type TextareaProps = {
   value: string;
   onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   placeholder?: string;
+  isDisabled: boolean;
 };
 
-function Textarea({ value, onChange, placeholder = '' }: TextareaProps): JSX.Element {
+function Textarea({ value, onChange, isDisabled, placeholder = '' }: TextareaProps): JSX.Element {
   return (
     <textarea
       className="reviews__textarea form__textarea"
@@ -15,6 +16,7 @@ function Textarea({ value, onChange, placeholder = '' }: TextareaProps): JSX.Ele
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      disabled={isDisabled}
     />
   );
 }

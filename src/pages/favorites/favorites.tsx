@@ -1,24 +1,28 @@
-import { JSX } from 'react';
+import { JSX, useEffect, useMemo } from 'react';
 import classNames from 'classnames';
 import Logo from '../../components/logo/logo';
-import { Offers, OfferType } from '../../types/offers';
+import { Offers } from '../../types/offers';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import { groupBy } from '../../functions';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import Header from '../../components/header/header.tsx';
 import PageTitle from '../../components/page-title/page-title.tsx';
+import { fetchFavoritesAction } from '../../store/api-actions.ts';
 
 function Favorites(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers.offers);
-
-  const favoriteOffers: Offers = offers.filter((offer: OfferType) => offer.isFavorite);
-  const favoriteOffersByGroup: Record<string, Offers> = groupBy(favoriteOffers, (offer: OfferType) => offer.city.name);
-
+  const dispatch = useAppDispatch();
+  const favoriteOffers = useAppSelector((state) => state.favorites.favorites);
+  const favoriteOffersByGroup: Record<string, Offers> =
+    useMemo(() => groupBy(favoriteOffers, (offer) => offer.city.name), [favoriteOffers]);
   const isEmpty = favoriteOffers.length === 0;
+
+  useEffect(() => {
+    dispatch(fetchFavoritesAction());
+  }, [dispatch]);
 
   return (
     <div className={classNames('page', { 'page--favorites-empty': isEmpty })}>
-      <PageTitle title={isEmpty ? '6 cities: favorites empty' : '6 cities: favorites'} />
+      <PageTitle title={isEmpty ? '6 cities: favorites empty' : '6 cities: favorites'}/>
       <Header/>
       <main className={classNames('page__main', 'page__main--favorites', { 'page__main--favorites-empty': isEmpty })}>
         <div className="page__favorites-container container">

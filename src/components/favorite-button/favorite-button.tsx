@@ -25,6 +25,11 @@ function FavoriteButton({ isFavorite, onToggleFavorite, pageType = PageType.CITI
     'offer__bookmark-button--active': favorite && pageType === PageType.OFFER,
   });
 
+  const iconClass = classNames({
+    'place-card__bookmark-icon': pageType === PageType.CITIES,
+    'offer__bookmark-icon': pageType === PageType.OFFER,
+  });
+
   const iconWidth = pageType === PageType.OFFER ? 31 : 18;
   const iconHeight = pageType === PageType.OFFER ? 33 : 19;
 
@@ -34,7 +39,7 @@ function FavoriteButton({ isFavorite, onToggleFavorite, pageType = PageType.CITI
       type="button"
       onClick={handleButtonClick}
     >
-      <svg className="place-card__bookmark-icon" width={iconWidth} height={iconHeight}>
+      <svg className={iconClass} width={iconWidth} height={iconHeight}>
         <use href="#icon-bookmark"></use>
       </svg>
       <span className="visually-hidden">To bookmarks</span>

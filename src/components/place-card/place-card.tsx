@@ -4,42 +4,59 @@ import CardMarkPremium from '../card-mark-premium/card-mark-premium';
 import { OfferType } from '../../types/offers';
 import classNames from 'classnames';
 import FavoriteButton from '../favorite-button/favorite-button';
-import { Nullable } from '../../types/globals';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import RatingView from '../rating-view/rating-view';
 import { AppRoute, PageType, } from '../../const.ts';
+import { toggleFavoriteStatusAction } from '../../store/api-actions.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { checkIsAuth } from '../../store/selectors/auth/auth.ts';
+import { setCurrentOffer } from '../../store/slices/offers/offers.ts';
 
 type Props = {
   offer: OfferType;
-  onCurrentOfferChange: (offer: Nullable<OfferType>) => void;
   className: string;
 }
 
-function PlaceCard({ offer, onCurrentOfferChange, className }: Props): JSX.Element {
+function PlaceCard({ offer, className }: Props): JSX.Element {
+  const isAuth = useAppSelector(checkIsAuth);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const { id, previewImage, price, type, title, isPremium, isFavorite, rating } = offer;
   const isFavorites: boolean = className === PageType.FAVORITES;
+  const isNearPlaces = className === PageType.NEAR_PLACES;
+  const isCities = className === PageType.CITIES;
   const classesArticle = classNames(['place-card', {
     'cities__card': className === PageType.CITIES,
-    'near-places__card': className === PageType.NEAR_PLACES,
+    'near-places__card': isNearPlaces,
     'favorites__card': isFavorites,
   }]);
   const classesImageWrapper = classNames(['place-card__image-wrapper', {
     'cities__image-wrapper': className === PageType.CITIES,
-    'near-places__image-wrapper': className === PageType.NEAR_PLACES,
+    'near-places__image-wrapper': isNearPlaces,
     'favorites__image-wrapper': isFavorites,
   }]);
 
   function handlerMouseEnter() {
-    onCurrentOfferChange(offer);
+    if (!isCities) {
+      return;
+    }
+    dispatch(setCurrentOffer(offer));
   }
 
   function handlerMouseLeave() {
-    onCurrentOfferChange(null);
+    if (!isCities) {
+      return;
+    }
+    dispatch(setCurrentOffer(null));
   }
 
-  function handleToggleFavorite(favarite: boolean) {
-    // eslint-disable-next-line no-console
-    console.log('Значение isFavfrinte изменилось', favarite);
+  function handleToggleFavorite(newFavoriteStatus: boolean) {
+    if (!isAuth) {
+      navigate(AppRoute.Login, { replace: true });
+      return;
+    }
+    dispatch(toggleFavoriteStatusAction({ id, status: Number(newFavoriteStatus) }));
   }
 
   return (

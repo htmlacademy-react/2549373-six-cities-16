@@ -4,6 +4,7 @@ import offersSlice from './slices/offers/offers.ts';
 import commentsSlice from './slices/comments/comments.ts';
 import authSlice from './slices/auth/auth.ts';
 import offerSlice from './slices/offer/offer.ts';
+import favoritesSlice from './slices/favorites/favorites.ts';
 
 export const api = createAPI();
 
@@ -12,6 +13,7 @@ export const reducer = combineReducers({
   [offerSlice.name]: offerSlice.reducer,
   [commentsSlice.name]: commentsSlice.reducer,
   [authSlice.name]: authSlice.reducer,
+  [favoritesSlice.name]: favoritesSlice.reducer,
 });
 
 export const store = configureStore({

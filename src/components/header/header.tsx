@@ -7,6 +7,7 @@ import { AppRoute } from '../../const.ts';
 function Header(): JSX.Element {
   const location = useLocation();
   const currentPath: AppRoute = location.pathname as AppRoute;
+
   return (
     <header className="header">
       <div className="container">

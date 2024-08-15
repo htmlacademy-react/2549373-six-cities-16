@@ -1,9 +1,7 @@
-import { JSX, useState } from 'react';
+import { JSX } from 'react';
 import classNames from 'classnames';
 import PlacesList from '../../components/places-list/places-list';
 import Map from '../../components/map/map';
-import { Nullable } from '../../types/globals';
-import { OfferType } from '../../types/offers';
 import { PageType } from '../../const';
 import Tabs from '../../components/tabs/tabs';
 import { useAppSelector } from '../../hooks';
@@ -19,7 +17,6 @@ function Main(): JSX.Element {
   const { isCityValid } = useCityNavigation();
   const cityName = useAppSelector(getCityName);
   const cityOffers = useSortedCityOffers(cityName);
-  const [currentOffer, setCurrentOffer] = useState<Nullable<OfferType>>(null);
 
   if (!isCityValid) {
     return <NotFound />;
@@ -52,13 +49,13 @@ function Main(): JSX.Element {
               <>
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{cityOffers.length} places to stay in {cityName}</b>
+                  <b className="places__found">{cityOffers.length} place{cityOffers.length > 1 ? 's' : ''} to stay in {cityName}</b>
                   <SortingOptions />
-                  <PlacesList offers={cityOffers} onChangeCurrentOffer={setCurrentOffer} className={PageType.CITIES} />
+                  <PlacesList offers={cityOffers} className={PageType.CITIES} />
                 </section>
                 <div className="cities__right-section">
                   {cityOffers.length > 0 && (
-                    <Map oneCityOffers={cityOffers} selectedOffer={currentOffer} className={PageType.CITIES} />
+                    <Map oneCityOffers={cityOffers} className={PageType.CITIES} />
                   )}
                 </div>
               </>
