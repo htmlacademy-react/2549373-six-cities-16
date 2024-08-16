@@ -2,9 +2,9 @@ import { JSX, MouseEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AppRoute } from '../../const.ts';
 import { Link } from 'react-router-dom';
-import { logoutAction } from '../../store/api-actions.ts';
 import { getUser, checkIsAuth } from '../../store/selectors/auth/auth.ts';
 import { getCountFavorites } from '../../store/selectors/favorites/favorites.ts';
+import { logoutAction } from '../../store/async-thunk/auth/auth.ts';
 
 function Nav(): JSX.Element {
   const isAuth = useAppSelector(checkIsAuth);

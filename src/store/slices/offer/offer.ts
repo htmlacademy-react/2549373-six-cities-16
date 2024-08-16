@@ -2,38 +2,39 @@ import { createSlice, PayloadAction, isPending, isRejected, isFulfilled } from '
 import { FullOffer, OfferDetails, Offers, OfferType } from '../../../types/offers';
 import { Nullable } from '../../../types/globals';
 import { NOT_FOUND_ERROR, RequestStatus } from '../../../const';
-import { fetchOfferAction, toggleFavoriteStatusAction } from '../../api-actions';
 import { setLoading } from '../../utils/utils';
+import { fetchOfferAction } from '../../async-thunk/offer/offer.ts';
+import { toggleFavoriteStatusAction } from '../../async-thunk/favorites/favorites.ts';
 
-type OfferState = {
+export type OfferInitialState = {
   offer: Nullable<FullOffer>;
   nearby: Nullable<Offers>;
   requestStatus: RequestStatus;
   errorMessage: Nullable<string>;
 };
 
-const initialState: OfferState = {
+const initialState: OfferInitialState = {
   offer: null,
   nearby: null,
   requestStatus: RequestStatus.Idle,
   errorMessage: null,
 };
 
-const handleFetchOfferFulfilled = (state: OfferState, action: PayloadAction<OfferDetails>) => {
+const handleFetchOfferFulfilled = (state: OfferInitialState, action: PayloadAction<OfferDetails>) => {
   state.offer = action.payload.offer;
   state.nearby = action.payload.nearby;
   state.requestStatus = RequestStatus.Success;
   state.errorMessage = null;
 };
 
-const handleFetchOfferRejected = (state: OfferState, action: PayloadAction<string | undefined>) => {
+const handleFetchOfferRejected = (state: OfferInitialState, action: PayloadAction<string | undefined>) => {
   state.requestStatus = RequestStatus.Failed;
-  if (action.payload === NOT_FOUND_ERROR) {
+  if (action.payload && action.payload === NOT_FOUND_ERROR) {
     state.errorMessage = NOT_FOUND_ERROR;
   }
 };
 
-const handleToggleFavoriteFulfilled = (state: OfferState, action: PayloadAction<OfferType | FullOffer>) => {
+const handleToggleFavoriteFulfilled = (state: OfferInitialState, action: PayloadAction<OfferType | FullOffer>) => {
   if (state.offer && state.offer.id === action.payload.id) {
     state.offer.isFavorite = action.payload.isFavorite;
   }

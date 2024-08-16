@@ -1,20 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Offers, OfferType } from '../../../types/offers.ts';
-import { fetchFavoritesAction, toggleFavoriteStatusAction } from '../../api-actions.ts';
+import { fetchFavoritesAction, toggleFavoriteStatusAction } from '../../async-thunk/favorites/favorites.ts';
 
-interface FavoritesState {
+export type FavoritesInitialState = {
   favorites: Offers;
 }
 
-const initialState: FavoritesState = {
+const initialState: FavoritesInitialState = {
   favorites: [],
 };
 
-const handleFetchFavoritesFulfilled = (state: FavoritesState, action: PayloadAction<Offers>) => {
+const handleFetchFavoritesFulfilled = (state: FavoritesInitialState, action: PayloadAction<Offers>) => {
   state.favorites = action.payload;
 };
 
-const handleToggleFavoriteFulfilled = (state: FavoritesState, action: PayloadAction<OfferType>) => {
+const handleToggleFavoriteFulfilled = (state: FavoritesInitialState, action: PayloadAction<OfferType>) => {
   const updatedOffer = action.payload;
 
   if (updatedOffer.isFavorite) {

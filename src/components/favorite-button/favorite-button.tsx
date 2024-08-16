@@ -39,7 +39,7 @@ function FavoriteButton({ isFavorite, onToggleFavorite, pageType = PageType.CITI
       type="button"
       onClick={handleButtonClick}
     >
-      <svg className={iconClass} width={iconWidth} height={iconHeight}>
+      <svg className={iconClass} width={iconWidth} height={iconHeight} data-testid="favorite-icon">
         <use href="#icon-bookmark"></use>
       </svg>
       <span className="visually-hidden">To bookmarks</span>

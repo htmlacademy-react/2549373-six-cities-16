@@ -1,14 +1,15 @@
-import { JSX } from 'react';
+import { JSX, useMemo } from 'react';
 import PlaceCard from '../place-card/place-card';
 import { Offers, } from '../../types/offers.ts';
 import { PageType } from '../../const.ts';
+import { useAppSelector } from '../../hooks';
+import { getFavorites } from '../../store/selectors/favorites/favorites.ts';
+import { groupBy } from '../../utils/utils.ts';
 
-type FavoritesListProps = {
-  favoriteOffersByGroup: Partial<Record<string, Offers>>;
-};
-
-function FavoritesList({ favoriteOffersByGroup }: FavoritesListProps): JSX.Element {
-
+function FavoritesList(): JSX.Element {
+  const favoriteOffers = useAppSelector(getFavorites);
+  const favoriteOffersByGroup: Record<string, Offers> =
+    useMemo(() => groupBy(favoriteOffers, (offer) => offer.city.name), [favoriteOffers]);
   return (
     <ul className="favorites__list">
       {Object.entries(favoriteOffersByGroup).map(([city, offers]) => (

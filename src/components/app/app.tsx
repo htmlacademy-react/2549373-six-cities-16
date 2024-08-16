@@ -1,6 +1,6 @@
 import { JSX, useEffect } from 'react';
 import NotFound from '../../pages/not-found/not-found';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
 import Favorites from '../../pages/favorites/favorites';
@@ -11,7 +11,7 @@ import Offer from '../../pages/offer/offer.tsx';
 import { authorizationStatusSelector, checkIsAuth } from '../../store/selectors/auth/auth.ts';
 import { isOffersDataLoadingSelector } from '../../store/selectors/offers/offers.ts';
 import ProtectedRoute from '../protected-route/protected-route.tsx';
-import { fetchFavoritesAction } from '../../store/api-actions.ts';
+import { fetchFavoritesAction } from '../../store/async-thunk/favorites/favorites.ts';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(authorizationStatusSelector);
@@ -33,25 +33,23 @@ function App(): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path={AppRoute.Main} element={<Main/>}/>
-        <Route path={AppRoute.Login} element={
-          <ProtectedRoute onlyUnAuth>
-            <Login/>
-          </ProtectedRoute>
-        }
-        />
-        <Route path={AppRoute.Favorites} element={
-          <ProtectedRoute>
-            <Favorites/>
-          </ProtectedRoute>
-        }
-        />
-        <Route path={AppRoute.Offer} element={<Offer/>}/>
-        <Route path="*" element={<NotFound/>}/>
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path={AppRoute.Main} element={<Main/>}/>
+      <Route path={AppRoute.Login} element={
+        <ProtectedRoute onlyUnAuth>
+          <Login/>
+        </ProtectedRoute>
+      }
+      />
+      <Route path={AppRoute.Favorites} element={
+        <ProtectedRoute>
+          <Favorites/>
+        </ProtectedRoute>
+      }
+      />
+      <Route path={AppRoute.Offer} element={<Offer/>}/>
+      <Route path="*" element={<NotFound/>}/>
+    </Routes>
   );
 }
 

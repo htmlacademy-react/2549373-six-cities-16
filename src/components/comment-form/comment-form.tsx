@@ -3,9 +3,9 @@ import Rating from '../rating/rating';
 import Textarea from '../textarea/textarea';
 import { Comment } from '../../types/reviews.ts';
 import { useParams } from 'react-router-dom';
-import { addCommentAction } from '../../store/api-actions.ts';
 import { useAppDispatch } from '../../hooks';
 import { toast } from 'react-toastify';
+import { addCommentAction } from '../../store/async-thunk/comments/comments.ts';
 
 function CommentForm(): JSX.Element {
   const { id } = useParams();

@@ -2,12 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { FullOffer, Offers, OfferType } from '../../../types/offers.ts';
 import { Cities, RequestStatus, SortOptionValue } from '../../../const.ts';
 import { SortOptionValueType } from '../../../types/sort.ts';
-import { fetchOffersAction, toggleFavoriteStatusAction } from '../../api-actions.ts';
 import { CityLink } from '../../../types/city.ts';
 import { setFailed, setLoading } from '../../utils/utils.ts';
 import { Nullable } from '../../../types/globals.ts';
+import { fetchOffersAction } from '../../async-thunk/offers/offers.ts';
+import { toggleFavoriteStatusAction } from '../../async-thunk/favorites/favorites.ts';
 
-type InitialState = {
+export type OffersInitialState = {
   cityName: CityLink;
   offers: Offers;
   sortOption: SortOptionValueType;
@@ -15,7 +16,7 @@ type InitialState = {
   currentOffer: Nullable<OfferType | FullOffer>;
 };
 
-const initialState: InitialState = {
+const initialState: OffersInitialState = {
   cityName: { id: Cities.Paris.id, name: Cities.Paris.name },
   offers: [],
   sortOption: SortOptionValue.Popular,
@@ -23,12 +24,12 @@ const initialState: InitialState = {
   currentOffer: null,
 };
 
-const handleFetchOffersFulfilled = (state: InitialState, action: PayloadAction<Offers>) => {
+const handleFetchOffersFulfilled = (state: OffersInitialState, action: PayloadAction<Offers>) => {
   state.requestStatus = RequestStatus.Success;
   state.offers = action.payload;
 };
 
-const handleToggleFavoriteFulfilled = (state: InitialState, action: PayloadAction<OfferType>) => {
+const handleToggleFavoriteFulfilled = (state: OffersInitialState, action: PayloadAction<OfferType>) => {
   const updatedOffer = action.payload;
   const existingOffer = state.offers.find((offer) => offer.id === updatedOffer.id);
 

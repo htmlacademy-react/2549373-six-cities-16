@@ -1,19 +1,16 @@
-import { JSX, useEffect, useMemo } from 'react';
+import { JSX, useEffect } from 'react';
 import classNames from 'classnames';
 import Logo from '../../components/logo/logo';
-import { Offers } from '../../types/offers';
 import FavoritesList from '../../components/favorites-list/favorites-list';
-import { groupBy } from '../../functions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import Header from '../../components/header/header.tsx';
 import PageTitle from '../../components/page-title/page-title.tsx';
-import { fetchFavoritesAction } from '../../store/api-actions.ts';
+import { fetchFavoritesAction } from '../../store/async-thunk/favorites/favorites.ts';
+import { getFavorites } from '../../store/selectors/favorites/favorites.ts';
 
 function Favorites(): JSX.Element {
   const dispatch = useAppDispatch();
-  const favoriteOffers = useAppSelector((state) => state.favorites.favorites);
-  const favoriteOffersByGroup: Record<string, Offers> =
-    useMemo(() => groupBy(favoriteOffers, (offer) => offer.city.name), [favoriteOffers]);
+  const favoriteOffers = useAppSelector(getFavorites);
   const isEmpty = favoriteOffers.length === 0;
 
   useEffect(() => {
@@ -39,7 +36,7 @@ function Favorites(): JSX.Element {
           ) : (
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
-              <FavoritesList favoriteOffersByGroup={favoriteOffersByGroup}/>
+              <FavoritesList />
             </section>
           )}
         </div>

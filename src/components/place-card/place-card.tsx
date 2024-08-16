@@ -1,5 +1,5 @@
 import { JSX } from 'react';
-import { capitalizeFirstLetter } from '../../functions';
+import { capitalizeFirstLetter } from '../../utils/utils.ts';
 import CardMarkPremium from '../card-mark-premium/card-mark-premium';
 import { OfferType } from '../../types/offers';
 import classNames from 'classnames';
@@ -7,10 +7,10 @@ import FavoriteButton from '../favorite-button/favorite-button';
 import { Link, useNavigate } from 'react-router-dom';
 import RatingView from '../rating-view/rating-view';
 import { AppRoute, PageType, } from '../../const.ts';
-import { toggleFavoriteStatusAction } from '../../store/api-actions.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { checkIsAuth } from '../../store/selectors/auth/auth.ts';
 import { setCurrentOffer } from '../../store/slices/offers/offers.ts';
+import { toggleFavoriteStatusAction } from '../../store/async-thunk/favorites/favorites.ts';
 
 type Props = {
   offer: OfferType;

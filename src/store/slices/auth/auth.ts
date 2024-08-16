@@ -1,29 +1,29 @@
 import { createSlice, isPending, isRejected, isFulfilled, PayloadAction } from '@reduxjs/toolkit';
 import { AuthStatus, RequestStatus } from '../../../const.ts';
-import { checkAuthAction, loginAction, logoutAction } from '../../api-actions.ts';
 import { Nullable } from '../../../types/globals.ts';
 import { User } from '../../../types/user.ts';
 import { setFailed, setLoading } from '../../utils/utils.ts';
+import { checkAuthAction, loginAction, logoutAction } from '../../async-thunk/auth/auth.ts';
 
-type InitialState = {
+export type AuthInitialState = {
   authorizationStatus: AuthStatus;
   requestStatus: RequestStatus;
   user: Nullable<User>;
 };
 
-const initialState: InitialState = {
+const initialState: AuthInitialState = {
   authorizationStatus: AuthStatus.Unknown,
   requestStatus: RequestStatus.Idle,
   user: null,
 };
 
-const handleAuthRejected = (state: InitialState) => {
+const handleAuthRejected = (state: AuthInitialState) => {
   state.requestStatus = RequestStatus.Failed;
   state.authorizationStatus = AuthStatus.NoAuth;
   state.user = null;
 };
 
-const handleAuthFulfilled = (state: InitialState, action: PayloadAction<User>) => {
+const handleAuthFulfilled = (state: AuthInitialState, action: PayloadAction<User>) => {
   state.requestStatus = RequestStatus.Success;
   state.authorizationStatus = AuthStatus.Auth;
   state.user = action.payload;

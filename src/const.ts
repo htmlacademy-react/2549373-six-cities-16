@@ -8,6 +8,7 @@ const Cities = {
 } as const;
 
 const enum AppRoute {
+  Root = '/',
   Main = '/:cityId?',
   Login = '/login',
   Favorites = '/favorites',

@@ -1,7 +1,7 @@
 import { OfferType } from '../../types/offers.ts';
 import { useAppSelector } from '../index.ts';
 import { useMemo } from 'react';
-import { groupBy } from '../../functions.ts';
+import { groupBy } from '../../utils/utils.ts';
 import { SortOptionValue } from '../../const.ts';
 import { CityName } from '../../types/city.ts';
 
