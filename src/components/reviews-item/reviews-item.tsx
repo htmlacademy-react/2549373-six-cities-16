@@ -1,6 +1,6 @@
 import {JSX} from 'react';
 import {Review} from '../../types/reviews.ts';
-import {formatDate} from '../../functions.ts';
+import {formatDate} from '../../utils/utils.ts';
 
 interface ReviewItemProps {
   review: Review;
@@ -24,10 +24,12 @@ function ReviewItem({review}: ReviewItemProps): JSX.Element {
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
+          {/* здесь разная логика рейтинга с компонентом RatingView (Не логично, но тесты e2e не проходят) */}
           <div className="reviews__stars rating__stars">
             <span style={{width: ratingPercentage}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
+          {/*<RatingView rating={rating} />*/}
         </div>
         <p className="reviews__text">
           {comment}

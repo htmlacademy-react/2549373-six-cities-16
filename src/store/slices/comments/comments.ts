@@ -1,16 +1,17 @@
 import { createSlice, isPending, isRejected, isFulfilled, PayloadAction } from '@reduxjs/toolkit';
 import { Review, Reviews } from '../../../types/reviews.ts';
-import { addCommentAction, fetchOfferAction } from '../../api-actions.ts';
 import { RequestStatus } from '../../../const.ts';
 import { OfferDetails } from '../../../types/offers.ts';
 import { setFailed, setLoading, setSuccess } from '../../utils/utils.ts';
+import { fetchOfferAction } from '../../async-thunk/offer/offer.ts';
+import { addCommentAction } from '../../async-thunk/comments/comments.ts';
 
-type InitialState = {
+export type CommentsInitialState = {
   comments: Reviews;
   requestStatus: RequestStatus;
 };
 
-const initialState: InitialState = {
+const initialState: CommentsInitialState = {
   comments: [],
   requestStatus: RequestStatus.Idle,
 };

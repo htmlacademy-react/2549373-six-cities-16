@@ -1,7 +1,6 @@
 import { JSX, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchOfferAction } from '../../store/api-actions';
 import { NOT_FOUND_ERROR, RequestStatus } from '../../const';
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
 import NotFound from '../not-found/not-found';
@@ -13,6 +12,7 @@ import NearbyPlaces from '../../components/nearby-places/nearby-places.tsx';
 import PageTitle from '../../components/page-title/page-title.tsx';
 import { getDataOffer, getNearbyPlacesData } from '../../store/selectors/offer/offer.ts';
 import { setCurrentOffer } from '../../store/slices/offers/offers.ts';
+import { fetchOfferAction } from '../../store/async-thunk/offer/offer.ts';
 
 function Offer(): JSX.Element {
   const { id } = useParams<{ id: string }>();
@@ -51,7 +51,7 @@ function Offer(): JSX.Element {
     <div className="page">
       <PageTitle title="6 cities: offer"/>
       <Header/>
-      <main className="page__main page__main--offer">
+      <main className="page__main page__main--offer" data-testid='offer'>
         <section className="offer">
           <OfferGallery images={offer.images}/>
           <div className="offer__container container">

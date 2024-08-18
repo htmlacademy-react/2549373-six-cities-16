@@ -1,10 +1,10 @@
 import { FormEvent, JSX, useEffect, useRef } from 'react';
 import Header from '../../components/header/header.tsx';
-import { loginAction } from '../../store/api-actions.ts';
 import { useAppDispatch } from '../../hooks';
 import { toast } from 'react-toastify';
 import PageTitle from '../../components/page-title/page-title.tsx';
 import RandomCityLink from '../../components/random-city-link/random-city-link.tsx';
+import { loginAction } from '../../store/async-thunk/auth/auth.ts';
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const passwordPattern = /(?=.*\d)(?=.*[a-zA-Z])/;
@@ -68,8 +68,9 @@ function Login(): JSX.Element {
             <h1 className="login__title">Sign in</h1>
             <form className="login__form form" action="" onSubmit={handleSubmit} noValidate>
               <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">E-mail</label>
+                <label className="visually-hidden" htmlFor='input-email'>E-mail</label>
                 <input
+                  id='input-email'
                   ref={loginRef}
                   className="login__input form__input"
                   type="text"
@@ -78,8 +79,9 @@ function Login(): JSX.Element {
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">Password</label>
+                <label className="visually-hidden" htmlFor='input-password'>Password</label>
                 <input
+                  id='input-password'
                   ref={passwordRef}
                   className="login__input form__input"
                   type="password"

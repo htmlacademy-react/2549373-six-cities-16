@@ -9,7 +9,7 @@ import CommentForm from '../comment-form/comment-form.tsx';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { checkIsAuth } from '../../store/selectors/auth/auth.ts';
-import { toggleFavoriteStatusAction } from '../../store/api-actions.ts';
+import { toggleFavoriteStatusAction } from '../../store/async-thunk/favorites/favorites.ts';
 
 type OfferContentProps = {
   offer: FullOffer;
