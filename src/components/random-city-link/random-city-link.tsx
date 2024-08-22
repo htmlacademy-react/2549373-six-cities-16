@@ -1,12 +1,8 @@
 import { JSX } from 'react';
 import { AppRoute, Cities, RouteParams } from '../../const';
-import { CityLink } from '../../types/city.ts';
 import { Link } from 'react-router-dom';
+import { getRandomCity } from '../../utils/utils';
 
-function getRandomCity(cities: CityLink[]): CityLink {
-  const randomIndex = Math.floor(Math.random() * cities.length);
-  return cities[randomIndex];
-}
 
 function RandomCityLink(): JSX.Element {
   const cityEntries = Object.values(Cities);

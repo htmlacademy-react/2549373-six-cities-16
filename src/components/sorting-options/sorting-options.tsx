@@ -1,10 +1,10 @@
 import { JSX, useState } from 'react';
 import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { SortOption } from '../../types/sort.ts';
-import { SORT_OPTIONS, SortOptionValue } from '../../const.ts';
-import { setSortOption } from '../../store/slices/offers/offers.ts';
-import { getSortOption } from '../../store/selectors/offers/offers.ts';
+import { SortOption } from '../../types/sort';
+import { SORT_OPTIONS, SortOptionValue } from '../../const';
+import { setSortOption } from '../../store/slices/offers/offers';
+import { getSortOption } from '../../store/selectors/offers/offers';
 
 function SortingOptions(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -25,7 +25,7 @@ function SortingOptions(): JSX.Element {
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
-      <span className="places__sorting-type" tabIndex={0} onClick={handleSortTypeClick}>
+      <span className="places__sorting-type" tabIndex={0} onClick={handleSortTypeClick} data-testid='sorting-type'>
         {selectedOptionTitle}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use href="#icon-arrow-select"></use>
@@ -38,6 +38,7 @@ function SortingOptions(): JSX.Element {
             className={classNames(['places__option', { 'places__option--active': selectedOption === option.value }])}
             tabIndex={0}
             onClick={() => handleOptionClick(option)}
+            data-testid={option.value}
           >
             {option.title}
           </li>

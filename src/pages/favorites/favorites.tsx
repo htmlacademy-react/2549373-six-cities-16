@@ -3,10 +3,10 @@ import classNames from 'classnames';
 import Logo from '../../components/logo/logo';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import Header from '../../components/header/header.tsx';
-import PageTitle from '../../components/page-title/page-title.tsx';
-import { fetchFavoritesAction } from '../../store/async-thunk/favorites/favorites.ts';
-import { getFavorites } from '../../store/selectors/favorites/favorites.ts';
+import Header from '../../components/header/header';
+import PageTitle from '../../components/page-title/page-title';
+import { fetchFavoritesAction } from '../../store/async-thunk/favorites/favorites';
+import { getFavorites } from '../../store/selectors/favorites/favorites';
 
 function Favorites(): JSX.Element {
   const dispatch = useAppDispatch();

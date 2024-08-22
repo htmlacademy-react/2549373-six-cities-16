@@ -1,17 +1,17 @@
 import faker from 'faker';
-import { State } from '../types/state.ts';
-import { AuthStatus, Cities, RequestStatus, SortOptionValue } from '../const.ts';
-import authSlice, { AuthInitialState } from '../store/slices/auth/auth.ts';
-import commentsSlice, { CommentsInitialState } from '../store/slices/comments/comments.ts';
-import favoritesSlice, { FavoritesInitialState } from '../store/slices/favorites/favorites.ts';
-import offerSlice, { OfferInitialState } from '../store/slices/offer/offer.ts';
-import offersSlice, { OffersInitialState } from '../store/slices/offers/offers.ts';
+import { State } from '../types/state';
+import { AuthStatus, Cities, RequestStatus, SortOptionValue } from '../const';
+import authSlice, { AuthInitialState } from '../store/slices/auth/auth';
+import commentsSlice, { CommentsInitialState } from '../store/slices/comments/comments';
+import favoritesSlice, { FavoritesInitialState } from '../store/slices/favorites/favorites';
+import offerSlice, { OfferInitialState } from '../store/slices/offer/offer';
+import offersSlice, { OffersInitialState } from '../store/slices/offers/offers';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import thunk from 'redux-thunk';
-import { Review, Reviews } from '../types/reviews.ts';
-import { FullOffer, OfferDetails, Offers, OfferType } from '../types/offers.ts';
+import { Review, Reviews } from '../types/reviews';
+import { FullOffer, OfferDetails, Offers, OfferType } from '../types/offers';
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
-import { createAPI } from '../services/api.ts';
+import { createAPI } from '../services/api';
 import MockAdapter from 'axios-mock-adapter';
 
 const axios = createAPI();
@@ -126,6 +126,13 @@ export function getRandomFavoriteOffers(count: number): Offers {
       isFavorite: faker.datatype.boolean(),
     }))
     .filter((offer) => offer.isFavorite);
+}
+
+export function getFixedFavoriteOffers(count: number): Offers {
+  return Array.from({ length: count }, () => ({
+    ...generateMockOfferType(),
+    isFavorite: true, // Устанавливаем значение isFavorite в true
+  }));
 }
 
 export type MockItem = {

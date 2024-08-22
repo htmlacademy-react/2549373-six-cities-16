@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosInstance } from 'axios';
 import { StatusCodes } from 'http-status-codes';
-import { Reviews } from '../../../types/reviews.ts';
-import { FullOffer, Offers } from '../../../types/offers.ts';
-import { Endpoint, NOT_FOUND_ERROR, RouteParams } from '../../../const.ts';
+import { Reviews } from '../../../types/reviews';
+import { FullOffer, Offers } from '../../../types/offers';
+import { Endpoint, NOT_FOUND_ERROR, RouteParams } from '../../../const';
 
 export const fetchOfferAction = createAsyncThunk<
   { offer: FullOffer; nearby: Offers; comments: Reviews },

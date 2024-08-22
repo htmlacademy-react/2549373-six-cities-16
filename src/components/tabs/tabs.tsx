@@ -2,7 +2,7 @@ import { JSX } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { AppRoute, Cities, RouteParams } from '../../const';
-import { CityId } from '../../types/city.ts';
+import { CityId } from '../../types/city';
 
 function Tabs(): JSX.Element {
   const cityEntries = Object.values(Cities);

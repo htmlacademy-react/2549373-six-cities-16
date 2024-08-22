@@ -1,21 +1,21 @@
-import { JSX } from 'react';
-import { capitalizeFirstLetter } from '../../utils/utils.ts';
+import { JSX, useCallback } from 'react';
+import { capitalizeFirstLetter } from '../../utils/utils';
 import CardMarkPremium from '../card-mark-premium/card-mark-premium';
 import { OfferType } from '../../types/offers';
 import classNames from 'classnames';
 import FavoriteButton from '../favorite-button/favorite-button';
 import { Link, useNavigate } from 'react-router-dom';
 import RatingView from '../rating-view/rating-view';
-import { AppRoute, PageType, } from '../../const.ts';
+import { AppRoute, PageType } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { checkIsAuth } from '../../store/selectors/auth/auth.ts';
-import { setCurrentOffer } from '../../store/slices/offers/offers.ts';
-import { toggleFavoriteStatusAction } from '../../store/async-thunk/favorites/favorites.ts';
+import { checkIsAuth } from '../../store/selectors/auth/auth';
+import { setCurrentOffer } from '../../store/slices/offers/offers';
+import { toggleFavoriteStatusAction } from '../../store/async-thunk/favorites/favorites';
 
 type Props = {
   offer: OfferType;
   className: string;
-}
+};
 
 function PlaceCard({ offer, className }: Props): JSX.Element {
   const isAuth = useAppSelector(checkIsAuth);
@@ -51,17 +51,17 @@ function PlaceCard({ offer, className }: Props): JSX.Element {
     dispatch(setCurrentOffer(null));
   }
 
-  function handleToggleFavorite(newFavoriteStatus: boolean) {
+  const handleToggleFavorite = useCallback((newFavoriteStatus: boolean) => {
     if (!isAuth) {
       navigate(AppRoute.Login, { replace: true });
       return;
     }
     dispatch(toggleFavoriteStatusAction({ id, status: Number(newFavoriteStatus) }));
-  }
+  }, [id, isAuth, navigate, dispatch]);
 
   return (
     <article className={classesArticle} onMouseEnter={handlerMouseEnter} onMouseLeave={handlerMouseLeave}>
-      {isPremium && <CardMarkPremium/>}
+      {isPremium && <CardMarkPremium />}
       <div className={classesImageWrapper}>
         <Link to={AppRoute.Offer.replace(':id', id)}>
           <img
@@ -79,9 +79,9 @@ function PlaceCard({ offer, className }: Props): JSX.Element {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <FavoriteButton isFavorite={isFavorite} onToggleFavorite={handleToggleFavorite}/>
+          <FavoriteButton isFavorite={isFavorite} onToggleFavorite={handleToggleFavorite} />
         </div>
-        <RatingView rating={rating}/>
+        <RatingView rating={rating} />
         <h2 className="place-card__name">
           <Link to={AppRoute.Offer.replace(':id', id)}>{title}</Link>
         </h2>

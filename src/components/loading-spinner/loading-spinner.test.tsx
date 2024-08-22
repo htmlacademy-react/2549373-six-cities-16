@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import LoadingSpinner from './loading-spinner.tsx';
+import LoadingSpinner from './loading-spinner';
 
 describe('LoadingSpinner Component', () => {
   it('should render a spinner element', () => {

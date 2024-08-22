@@ -8,7 +8,7 @@ import {
   generateMockFullOffer,
   generateMockOffers,
   generateMockReviews,
-} from '../../../utils/moks.ts';
+} from '../../../utils/moks';
 
 describe('Offer async actions', () => {
   let store: ReturnType<typeof mockStore>;

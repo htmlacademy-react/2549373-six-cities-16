@@ -6,7 +6,7 @@ import {
   mockAxiosAdapter,
   mockStore,
   generateMockOffers,
-} from '../../../utils/moks.ts';
+} from '../../../utils/moks';
 
 describe('Offers async actions', () => {
   let store: ReturnType<typeof mockStore>;

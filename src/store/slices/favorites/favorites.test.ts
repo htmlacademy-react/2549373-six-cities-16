@@ -1,14 +1,14 @@
 import { describe, it, expect } from 'vitest';
 import favoritesSlice from './favorites';
-import { Offers } from '../../../types/offers.ts';
+import { Offers } from '../../../types/offers';
 import {
   generateMockOffers,
   generateMockOfferType,
   makeFakeStore,
   mockFavoriteStatusFalse,
   mockFavoriteStatusTrue
-} from '../../../utils/moks.ts';
-import { fetchFavoritesAction, toggleFavoriteStatusAction } from '../../async-thunk/favorites/favorites.ts';
+} from '../../../utils/moks';
+import { fetchFavoritesAction, toggleFavoriteStatusAction } from '../../async-thunk/favorites/favorites';
 
 describe('Favorites slice', () => {
   const prevState = makeFakeStore()[favoritesSlice.name];

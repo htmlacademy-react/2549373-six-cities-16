@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { RequestStatus } from '../../const.ts';
-import { setLoading, setSuccess, setFailed } from './utils.ts';
+import { RequestStatus } from '../../const';
+import { setLoading, setSuccess, setFailed } from './utils';
 
 describe('Request status utilities', () => {
   const initialState = { requestStatus: RequestStatus.Idle };

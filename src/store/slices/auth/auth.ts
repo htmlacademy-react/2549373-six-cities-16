@@ -1,9 +1,9 @@
 import { createSlice, isPending, isRejected, isFulfilled, PayloadAction } from '@reduxjs/toolkit';
-import { AuthStatus, RequestStatus } from '../../../const.ts';
-import { Nullable } from '../../../types/globals.ts';
-import { User } from '../../../types/user.ts';
-import { setFailed, setLoading } from '../../utils/utils.ts';
-import { checkAuthAction, loginAction, logoutAction } from '../../async-thunk/auth/auth.ts';
+import { AuthStatus, RequestStatus } from '../../../const';
+import { Nullable } from '../../../types/globals';
+import { User } from '../../../types/user';
+import { setFailed, setLoading } from '../../utils/utils';
+import { checkAuthAction, loginAction, logoutAction } from '../../async-thunk/auth/auth';
 
 export type AuthInitialState = {
   authorizationStatus: AuthStatus;

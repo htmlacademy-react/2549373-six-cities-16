@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useAppDispatch } from '../index.ts';
-import { CityId } from '../../types/city.ts';
-import { Cities } from '../../const.ts';
-import { changeCity } from '../../store/slices/offers/offers.ts';
+import { useAppDispatch } from '../index';
+import { CityId } from '../../types/city';
+import { Cities } from '../../const';
+import { changeCity } from '../../store/slices/offers/offers';
 
 export function useCityNavigation() {
   const dispatch = useAppDispatch();

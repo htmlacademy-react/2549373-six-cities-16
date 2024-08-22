@@ -1,11 +1,11 @@
 import { JSX, useEffect, useRef } from 'react';
 import 'leaflet/dist/leaflet.css';
-import { FullOffer, OfferType } from '../../types/offers.ts';
-import useMap from '../../hooks/use-map/use-map.tsx';
+import { FullOffer, OfferType } from '../../types/offers';
+import useMap from '../../hooks/use-map/use-map';
 import leaflet, { layerGroup, Marker } from 'leaflet';
-import { UrlMarker } from '../../const.ts';
+import { UrlMarker } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { State } from '../../types/state.ts';
+import { State } from '../../types/state';
 
 type MapProps = {
   oneCityOffers: (OfferType | FullOffer)[];
@@ -57,7 +57,7 @@ function Map({ oneCityOffers, className }: MapProps): JSX.Element {
   }, [map, oneCityOffers, selectedOffer]);
 
   return (
-    <section className={`map ${className}__map`} ref={mapRef}></section>
+    <section className={`map ${className}__map`} ref={mapRef} data-testid="map"></section>
   );
 }
 

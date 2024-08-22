@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import OfferHost from './offer-host';
-import { generateMockHost } from '../../utils/moks.ts';
+import { generateMockHost } from '../../utils/moks';
 
 describe('OfferHost Component', () => {
   it('should render host information correctly', () => {

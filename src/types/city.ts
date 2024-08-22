@@ -1,5 +1,5 @@
-import { Location } from './offers.ts';
-import { Cities } from '../const.ts';
+import { Location } from './offers';
+import { Cities } from '../const';
 
 export type City = {
   name: string;

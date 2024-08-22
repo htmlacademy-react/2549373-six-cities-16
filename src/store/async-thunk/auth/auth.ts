@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { AppDispatch, State } from '../../../types/state.ts';
-import { User } from '../../../types/user.ts';
-import { AuthStatus, Endpoint } from '../../../const.ts';
-import { AuthData } from '../../../types/auth-data.ts';
-import { dropToken, saveToken } from '../../../services/token.ts';
+import { AppDispatch, State } from '../../../types/state';
+import { User } from '../../../types/user';
+import { AuthStatus, Endpoint } from '../../../const';
+import { AuthData } from '../../../types/auth-data';
+import { dropToken, saveToken } from '../../../services/token';
 
 export const checkAuthAction = createAsyncThunk<User, undefined, {
   dispatch: AppDispatch;

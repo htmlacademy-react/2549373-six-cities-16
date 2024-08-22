@@ -6,7 +6,7 @@ import {
   makeFakeStore,
   mockAxiosAdapter,
   mockStore
-} from '../../../utils/moks.ts';
+} from '../../../utils/moks';
 import { Review } from '../../../types/reviews';
 
 describe('Comments async actions', () => {

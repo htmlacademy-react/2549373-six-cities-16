@@ -1,4 +1,4 @@
-import { RequestStatus } from '../../const.ts';
+import { RequestStatus } from '../../const';
 
 type StateWithRequestStatus = {
   requestStatus: RequestStatus;
