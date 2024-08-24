@@ -12,6 +12,7 @@ import PageTitle from '../../components/page-title/page-title';
 import NotFound from '../not-found/not-found';
 import { useCityNavigation } from '../../hooks/use-city-navigation/use-city-navigation';
 import { getCityName } from '../../store/selectors/offers/offers';
+import { pluralize } from '../../utils/utils.ts';
 
 function Main(): JSX.Element {
   const { isCityValid } = useCityNavigation();
@@ -49,7 +50,7 @@ function Main(): JSX.Element {
               <>
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found" data-testid="places-found">{cityOffers.length} place{cityOffers.length > 1 ? 's' : ''} to stay in {cityName}</b>
+                  <b className="places__found" data-testid="places-found">{cityOffers.length} place{pluralize(cityOffers.length)} to stay in {cityName}</b>
                   <SortingOptions />
                   <PlacesList offers={cityOffers} className={PageType.CITIES} />
                 </section>

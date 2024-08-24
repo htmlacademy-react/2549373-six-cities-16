@@ -21,3 +21,10 @@ export function getRandomCity(cities: CityLink[]): CityLink {
   const randomIndex = Math.floor(Math.random() * cities.length);
   return cities[randomIndex];
 }
+
+export function pluralize(count: number): string {
+  if (count < 0) {
+    return '';
+  }
+  return count > 1 ? 's' : '';
+}
