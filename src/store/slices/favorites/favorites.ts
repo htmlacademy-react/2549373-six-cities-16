@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Offers, OfferType } from '../../../types/offers.ts';
-import { fetchFavoritesAction, toggleFavoriteStatusAction } from '../../async-thunk/favorites/favorites.ts';
+import { Offers, OfferType } from '../../../types/offers';
+import { fetchFavoritesAction, toggleFavoriteStatusAction } from '../../async-thunk/favorites/favorites';
 
 export type FavoritesInitialState = {
   favorites: Offers;

@@ -6,7 +6,7 @@ import {
   makeFakeStore,
   mockAxiosAdapter, mockFavoriteStatusTrue,
   mockStore
-} from '../../../utils/moks.ts';
+} from '../../../utils/moks';
 import { Offers } from '../../../types/offers';
 
 describe('Favorites async actions', () => {

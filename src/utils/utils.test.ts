@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { capitalizeFirstLetter, formatDate, groupBy } from './utils';
-import { generateMockItems, MockItem } from './moks.ts';
+import { generateMockItems, MockItem } from './moks';
 
 describe('Functions utils:', () => {
   describe('capitalizeFirstLetter', () => {

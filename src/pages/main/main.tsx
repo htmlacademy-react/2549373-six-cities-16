@@ -6,12 +6,12 @@ import { PageType } from '../../const';
 import Tabs from '../../components/tabs/tabs';
 import { useAppSelector } from '../../hooks';
 import SortingOptions from '../../components/sorting-options/sorting-options';
-import useSortedCityOffers from '../../hooks/use-sorted-city-offers/use-sorted-city-offers.tsx';
-import Header from '../../components/header/header.tsx';
-import PageTitle from '../../components/page-title/page-title.tsx';
+import useSortedCityOffers from '../../hooks/use-sorted-city-offers/use-sorted-city-offers';
+import Header from '../../components/header/header';
+import PageTitle from '../../components/page-title/page-title';
 import NotFound from '../not-found/not-found';
-import { useCityNavigation } from '../../hooks/use-city-navigation/use-city-navigation.ts';
-import { getCityName } from '../../store/selectors/offers/offers.ts';
+import { useCityNavigation } from '../../hooks/use-city-navigation/use-city-navigation';
+import { getCityName } from '../../store/selectors/offers/offers';
 
 function Main(): JSX.Element {
   const { isCityValid } = useCityNavigation();
@@ -35,7 +35,7 @@ function Main(): JSX.Element {
           <div className={classNames('cities__places-container', 'container', { 'cities__places-container--empty': isEmpty })}>
             {isEmpty ? (
               <>
-                <section className="cities__no-places">
+                <section className="cities__no-places" data-testid="no-places">
                   <div className="cities__status-wrapper tabs__content">
                     <b className="cities__status">No places to stay available</b>
                     <p className="cities__status-description">
@@ -49,7 +49,7 @@ function Main(): JSX.Element {
               <>
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{cityOffers.length} place{cityOffers.length > 1 ? 's' : ''} to stay in {cityName}</b>
+                  <b className="places__found" data-testid="places-found">{cityOffers.length} place{cityOffers.length > 1 ? 's' : ''} to stay in {cityName}</b>
                   <SortingOptions />
                   <PlacesList offers={cityOffers} className={PageType.CITIES} />
                 </section>

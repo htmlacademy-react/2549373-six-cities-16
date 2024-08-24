@@ -1,22 +1,22 @@
-import { JSX } from 'react';
-import { FullOffer } from '../../types/offers.ts';
-import { AppRoute } from '../../const.ts';
-import { Reviews } from '../../types/reviews.ts';
-import FavoriteButton from '../favorite-button/favorite-button.tsx';
-import OfferHost from '../offer-host/offer-host.tsx';
-import ReviewsList from '../reviews-list/reviews-list.tsx';
-import CommentForm from '../comment-form/comment-form.tsx';
+import { JSX, useCallback } from 'react';
+import { FullOffer } from '../../types/offers';
+import { AppRoute } from '../../const';
+import { Reviews } from '../../types/reviews';
+import FavoriteButton from '../favorite-button/favorite-button';
+import OfferHost from '../offer-host/offer-host';
+import ReviewsList from '../reviews-list/reviews-list';
+import CommentForm from '../comment-form/comment-form';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { checkIsAuth } from '../../store/selectors/auth/auth.ts';
-import { toggleFavoriteStatusAction } from '../../store/async-thunk/favorites/favorites.ts';
+import { checkIsAuth } from '../../store/selectors/auth/auth';
+import { toggleFavoriteStatusAction } from '../../store/async-thunk/favorites/favorites';
 
 type OfferContentProps = {
   offer: FullOffer;
   reviews: Reviews;
 }
 
-function OfferContent({ offer, reviews}: OfferContentProps): JSX.Element {
+function OfferContent({ offer, reviews }: OfferContentProps): JSX.Element {
   const isAuth = useAppSelector(checkIsAuth);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -35,13 +35,14 @@ function OfferContent({ offer, reviews}: OfferContentProps): JSX.Element {
   } = offer;
   const roundedRating = Math.round(rating);
 
-  function handleToggleFavorite(newFavoriteStatus: boolean) {
-    if(!isAuth){
-      navigate(AppRoute.Login, {replace: true});
+  const handleToggleFavorite = useCallback((newFavoriteStatus: boolean) => {
+    if (!isAuth) {
+      navigate(AppRoute.Login, { replace: true });
       return;
     }
     dispatch(toggleFavoriteStatusAction({ id, status: Number(newFavoriteStatus) }));
-  }
+  }, [id, isAuth, navigate, dispatch]); // Добавляем зависимости
+
 
   return (
     <>
@@ -50,7 +51,7 @@ function OfferContent({ offer, reviews}: OfferContentProps): JSX.Element {
         <FavoriteButton isFavorite={isFavorite} onToggleFavorite={handleToggleFavorite} pageType="offer"/>
       </div>
       <div className="offer__rating rating">
-        <div className="offer__stars rating__stars">45454
+        <div className="offer__stars rating__stars">
           <span style={{ width: `${roundedRating * 20}%` }}></span>
           <span className="visually-hidden">Rating</span>
         </div>
@@ -76,7 +77,7 @@ function OfferContent({ offer, reviews}: OfferContentProps): JSX.Element {
       <OfferHost host={host} description={description}/>
       <section className="offer__reviews reviews">
         {reviews && <ReviewsList reviews={reviews}/>}
-        {isAuth && <CommentForm />}
+        {isAuth && <CommentForm/>}
       </section>
     </>
   );

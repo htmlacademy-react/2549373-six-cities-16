@@ -2,7 +2,7 @@ import { JSX } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 type PageTitleProps = {
-  title: string;
+  title?: string;
 };
 
 function PageTitle({ title = '' }: PageTitleProps): JSX.Element {

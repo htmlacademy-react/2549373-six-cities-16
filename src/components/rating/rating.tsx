@@ -1,5 +1,5 @@
-import React, { ChangeEvent, JSX } from 'react';
-import { RatingTooltip } from '../../types/rating.ts';
+import React, { ChangeEvent, JSX, memo } from 'react';
+import { RatingTooltip } from '../../types/rating';
 
 type RatingProps = {
   rating: number | null;
@@ -58,4 +58,5 @@ function Rating({ rating, onChange, isDisabled }: RatingProps): JSX.Element {
   );
 }
 
-export default Rating;
+const MemoizedRating = memo(Rating);
+export default MemoizedRating;

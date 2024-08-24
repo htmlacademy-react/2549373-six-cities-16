@@ -1,5 +1,5 @@
-import { State } from '../../../types/state.ts';
-import { Reviews } from '../../../types/reviews.ts';
+import { State } from '../../../types/state';
+import { Reviews } from '../../../types/reviews';
 
 export const getComments = (state: State): Reviews => state.comments.comments.length > 0
   ? [...state.comments.comments]

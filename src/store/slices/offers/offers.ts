@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { FullOffer, Offers, OfferType } from '../../../types/offers.ts';
-import { Cities, RequestStatus, SortOptionValue } from '../../../const.ts';
-import { SortOptionValueType } from '../../../types/sort.ts';
-import { CityLink } from '../../../types/city.ts';
-import { setFailed, setLoading } from '../../utils/utils.ts';
-import { Nullable } from '../../../types/globals.ts';
-import { fetchOffersAction } from '../../async-thunk/offers/offers.ts';
-import { toggleFavoriteStatusAction } from '../../async-thunk/favorites/favorites.ts';
+import { FullOffer, Offers, OfferType } from '../../../types/offers';
+import { Cities, RequestStatus, SortOptionValue } from '../../../const';
+import { SortOptionValueType } from '../../../types/sort';
+import { CityLink } from '../../../types/city';
+import { setFailed, setLoading } from '../../utils/utils';
+import { Nullable } from '../../../types/globals';
+import { fetchOffersAction } from '../../async-thunk/offers/offers';
+import { toggleFavoriteStatusAction } from '../../async-thunk/favorites/favorites';
 
 export type OffersInitialState = {
   cityName: CityLink;

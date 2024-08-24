@@ -3,10 +3,10 @@ import { createMemoryHistory, MemoryHistory } from 'history';
 import App from './app';
 import { AppRoute, AuthStatus, RequestStatus, RouteParams } from '../../const';
 import { withHistory, withStore } from '../../utils/mock-component';
-import { generateMockOfferDetails, getRandomFavoriteOffers, makeFakeStore } from '../../utils/moks.ts';
-import authSlice, { AuthInitialState } from '../../store/slices/auth/auth.ts';
-import favoritesSlice from '../../store/slices/favorites/favorites.ts';
-import offerSlice, { OfferInitialState } from '../../store/slices/offer/offer.ts';
+import { generateMockOfferDetails, getRandomFavoriteOffers, makeFakeStore } from '../../utils/moks';
+import authSlice, { AuthInitialState } from '../../store/slices/auth/auth';
+import favoritesSlice from '../../store/slices/favorites/favorites';
+import offerSlice, { OfferInitialState } from '../../store/slices/offer/offer';
 
 describe('Application Routing', () => {
   let mockHistory: MemoryHistory;
@@ -24,7 +24,7 @@ describe('Application Routing', () => {
 
     render(withStoreComponent);
 
-    expect(screen.getByText(/Cities/i)).toBeInTheDocument(); // Замените на текст, который точно присутствует на главной странице
+    expect(screen.getByText(/Cities/i)).toBeInTheDocument();
   });
 
   it('should render "Login" when user navigate to "/login"', () => {

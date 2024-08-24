@@ -1,10 +1,10 @@
 import { createSlice, isPending, isRejected, isFulfilled, PayloadAction } from '@reduxjs/toolkit';
-import { Review, Reviews } from '../../../types/reviews.ts';
-import { RequestStatus } from '../../../const.ts';
-import { OfferDetails } from '../../../types/offers.ts';
-import { setFailed, setLoading, setSuccess } from '../../utils/utils.ts';
-import { fetchOfferAction } from '../../async-thunk/offer/offer.ts';
-import { addCommentAction } from '../../async-thunk/comments/comments.ts';
+import { Review, Reviews } from '../../../types/reviews';
+import { RequestStatus } from '../../../const';
+import { OfferDetails } from '../../../types/offers';
+import { setFailed, setLoading, setSuccess } from '../../utils/utils';
+import { fetchOfferAction } from '../../async-thunk/offer/offer';
+import { addCommentAction } from '../../async-thunk/comments/comments';
 
 export type CommentsInitialState = {
   comments: Reviews;

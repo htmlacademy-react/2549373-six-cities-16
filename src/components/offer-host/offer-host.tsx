@@ -1,5 +1,5 @@
 import { JSX } from 'react';
-import { Host } from '../../types/offers.ts';
+import { Host } from '../../types/offers';
 import classNames from 'classnames';
 
 export type OfferHostProps = {

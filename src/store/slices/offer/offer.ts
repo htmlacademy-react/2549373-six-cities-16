@@ -3,8 +3,8 @@ import { FullOffer, OfferDetails, Offers, OfferType } from '../../../types/offer
 import { Nullable } from '../../../types/globals';
 import { NOT_FOUND_ERROR, RequestStatus } from '../../../const';
 import { setLoading } from '../../utils/utils';
-import { fetchOfferAction } from '../../async-thunk/offer/offer.ts';
-import { toggleFavoriteStatusAction } from '../../async-thunk/favorites/favorites.ts';
+import { fetchOfferAction } from '../../async-thunk/offer/offer';
+import { toggleFavoriteStatusAction } from '../../async-thunk/favorites/favorites';
 
 export type OfferInitialState = {
   offer: Nullable<FullOffer>;

@@ -1,8 +1,8 @@
 import { JSX } from 'react';
-import Logo from '../logo/logo.tsx';
-import Nav from '../nav/nav.tsx';
+import Logo from '../logo/logo';
+import Nav from '../nav/nav';
 import { useLocation } from 'react-router-dom';
-import { AppRoute } from '../../const.ts';
+import { AppRoute } from '../../const';
 
 function Header(): JSX.Element {
   const location = useLocation();
@@ -13,7 +13,7 @@ function Header(): JSX.Element {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Logo width="81" height="41"/>
+            <Logo width="81" height="41" />
           </div>
           {currentPath !== AppRoute.Login && <Nav/>}
         </div>

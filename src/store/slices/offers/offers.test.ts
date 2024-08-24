@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest';
 import offersSlice, { changeCity, setSortOption, setCurrentOffer } from './offers';
-import { generateMockOffers, generateMockOfferType, makeFakeStore } from '../../../utils/moks.ts';
+import { generateMockOffers, generateMockOfferType, makeFakeStore } from '../../../utils/moks';
 import { Cities, SortOptionValue, RequestStatus } from '../../../const';
 import { Offers, OfferType } from '../../../types/offers';
 import { CityLink } from '../../../types/city';
-import { fetchOffersAction } from '../../async-thunk/offers/offers.ts';
-import { toggleFavoriteStatusAction } from '../../async-thunk/favorites/favorites.ts';
+import { fetchOffersAction } from '../../async-thunk/offers/offers';
+import { toggleFavoriteStatusAction } from '../../async-thunk/favorites/favorites';
 
 describe('Offers slice', () => {
   const prevState = makeFakeStore()[offersSlice.name];

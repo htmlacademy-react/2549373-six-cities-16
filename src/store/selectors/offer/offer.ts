@@ -1,8 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { getComments } from '../comments/comments.ts';
-import { State } from '../../../types/state.ts';
-import { Nullable } from '../../../types/globals.ts';
-import { FullOffer, Offers } from '../../../types/offers.ts';
+import { getComments } from '../comments/comments';
+import { State } from '../../../types/state';
+import { Nullable } from '../../../types/globals';
+import { FullOffer, Offers } from '../../../types/offers';
 
 export const getOffer = (state: State): Nullable<FullOffer> => state.offer.offer;
 export const getNearby = (state: State): Nullable<Offers> => state.offer.nearby;

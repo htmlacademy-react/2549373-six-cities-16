@@ -2,7 +2,7 @@ import { JSX } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { AppRoute, Cities, RouteParams } from '../../const';
-import { checkIsAuth } from '../../store/selectors/auth/auth.ts';
+import { checkIsAuth } from '../../store/selectors/auth/auth';
 
 type FromState = {
   from?: {

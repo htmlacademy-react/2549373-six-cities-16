@@ -6,12 +6,12 @@ import Login from '../../pages/login/login';
 import Favorites from '../../pages/favorites/favorites';
 import { AppRoute, AuthStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import LoadingSpinner from '../loading-spinner/loading-spinner.tsx';
-import Offer from '../../pages/offer/offer.tsx';
-import { authorizationStatusSelector, checkIsAuth } from '../../store/selectors/auth/auth.ts';
-import { isOffersDataLoadingSelector } from '../../store/selectors/offers/offers.ts';
-import ProtectedRoute from '../protected-route/protected-route.tsx';
-import { fetchFavoritesAction } from '../../store/async-thunk/favorites/favorites.ts';
+import LoadingSpinner from '../loading-spinner/loading-spinner';
+import Offer from '../../pages/offer/offer';
+import { authorizationStatusSelector, checkIsAuth } from '../../store/selectors/auth/auth';
+import { isOffersDataLoadingSelector } from '../../store/selectors/offers/offers';
+import ProtectedRoute from '../protected-route/protected-route';
+import { fetchFavoritesAction } from '../../store/async-thunk/favorites/favorites';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(authorizationStatusSelector);

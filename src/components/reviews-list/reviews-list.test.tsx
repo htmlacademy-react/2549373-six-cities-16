@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import ReviewsList from './reviews-list';
-import { generateMockReviews } from '../../utils/moks.ts';
+import { generateMockReviews } from '../../utils/moks';
 
 describe('ReviewsList Component', () => {
   it('should render the correct number of reviews', () => {

@@ -17,6 +17,7 @@ function Textarea({ value, onChange, isDisabled, placeholder = '' }: TextareaPro
       value={value}
       onChange={onChange}
       disabled={isDisabled}
+      data-testid="textarea"
     />
   );
 }

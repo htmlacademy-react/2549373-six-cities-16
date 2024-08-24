@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import { AuthStatus, RequestStatus } from '../../../const';
 import { User } from '../../../types/user';
-import authSlice from './auth.ts';
-import { makeFakeState, makeFakeStore } from '../../../utils/moks.ts';
-import { Nullable } from '../../../types/globals.ts';
-import { checkAuthAction, logoutAction } from '../../async-thunk/auth/auth.ts';
+import authSlice from './auth';
+import { makeFakeState, makeFakeStore } from '../../../utils/moks';
+import { Nullable } from '../../../types/globals';
+import { checkAuthAction, logoutAction } from '../../async-thunk/auth/auth';
 
 describe('Auth slice', () => {
   const initialState = makeFakeState()[authSlice.name];

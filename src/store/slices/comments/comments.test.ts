@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
 import commentsSlice from './comments';
 import { RequestStatus } from '../../../const';
-import { generateMockOfferDetails, generateMockReview, makeFakeStore } from '../../../utils/moks.ts';
-import { fetchOfferAction } from '../../async-thunk/offer/offer.ts';
-import { addCommentAction } from '../../async-thunk/comments/comments.ts';
+import { generateMockOfferDetails, generateMockReview, makeFakeStore } from '../../../utils/moks';
+import { fetchOfferAction } from '../../async-thunk/offer/offer';
+import { addCommentAction } from '../../async-thunk/comments/comments';
 
 describe('Comments slice', () => {
   const prevState = makeFakeStore()[commentsSlice.name];

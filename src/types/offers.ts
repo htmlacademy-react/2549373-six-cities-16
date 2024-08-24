@@ -1,5 +1,5 @@
-import { City } from './city.ts';
-import { Reviews } from './reviews.ts';
+import { City } from './city';
+import { Reviews } from './reviews';
 
 export type Location = {
   latitude: number;

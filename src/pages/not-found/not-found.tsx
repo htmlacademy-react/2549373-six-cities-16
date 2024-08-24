@@ -2,8 +2,8 @@ import { JSX } from 'react';
 import styles from './not-found.module.css';
 import {Link} from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import { resetErrorMessage } from '../../store/slices/offer/offer.ts';
-import PageTitle from '../../components/page-title/page-title.tsx';
+import { resetErrorMessage } from '../../store/slices/offer/offer';
+import PageTitle from '../../components/page-title/page-title';
 
 function NotFound (): JSX.Element {
   const dispatch = useAppDispatch();

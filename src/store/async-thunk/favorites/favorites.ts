@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { AppDispatch, State } from '../../../types/state.ts';
-import { Offers, OfferType } from '../../../types/offers.ts';
-import { Endpoint, RouteParams } from '../../../const.ts';
+import { AppDispatch, State } from '../../../types/state';
+import { Offers, OfferType } from '../../../types/offers';
+import { Endpoint, RouteParams } from '../../../const';
 
 export const fetchFavoritesAction = createAsyncThunk<
   Offers,

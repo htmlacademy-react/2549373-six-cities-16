@@ -70,7 +70,13 @@ enum RequestStatus {
   Failed = 'failed',
 }
 
+enum ReviewLength {
+  Min = 50,
+  Max = 300,
+}
+
 const NOT_FOUND_ERROR = 'NOT_FOUND_ERROR';
+const LOGO_SRC = 'img/logo.svg';
 
 export {
   Cities,
@@ -83,4 +89,6 @@ export {
   Endpoint,
   RequestStatus,
   NOT_FOUND_ERROR,
+  ReviewLength,
+  LOGO_SRC
 };

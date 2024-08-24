@@ -6,10 +6,10 @@ import {
   generateMockOfferDetails,
   generateMockOfferType,
   makeFakeStore
-} from '../../../utils/moks.ts';
+} from '../../../utils/moks';
 import { OfferDetails, OfferType } from '../../../types/offers';
-import { fetchOfferAction } from '../../async-thunk/offer/offer.ts';
-import { toggleFavoriteStatusAction } from '../../async-thunk/favorites/favorites.ts';
+import { fetchOfferAction } from '../../async-thunk/offer/offer';
+import { toggleFavoriteStatusAction } from '../../async-thunk/favorites/favorites';
 
 describe('Offer slice', () => {
   const prevState = makeFakeStore()[offerSlice.name];
@@ -21,7 +21,7 @@ describe('Offer slice', () => {
 
   it('should update offer and nearby offers when fetchOfferAction is fulfilled', () => {
     const mockOfferDetails: OfferDetails = generateMockOfferDetails();
-    const state = offerSlice.reducer(prevState, fetchOfferAction.fulfilled(mockOfferDetails, 'requestId', mockOfferDetails.offer.id));
+    const state = offerSlice.reducer(prevState, fetchOfferAction.fulfilled(mockOfferDetails, '', mockOfferDetails.offer.id));
     expect(state.offer).toEqual(mockOfferDetails.offer);
     expect(state.nearby).toEqual(mockOfferDetails.nearby);
     expect(state.requestStatus).toBe(RequestStatus.Success);
@@ -58,7 +58,7 @@ describe('Offer slice', () => {
       },
     };
 
-    const state = offerSlice.reducer(stateWithOffer, toggleFavoriteStatusAction.fulfilled(mockOffer, 'requestId', {
+    const state = offerSlice.reducer(stateWithOffer, toggleFavoriteStatusAction.fulfilled(mockOffer, '', {
       id: mockOffer.id,
       status: 1
     }));

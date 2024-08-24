@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { Review } from '../../../types/reviews.ts';
-import { AppDispatch, State } from '../../../types/state.ts';
-import { Endpoint, RouteParams } from '../../../const.ts';
+import { Review } from '../../../types/reviews';
+import { AppDispatch, State } from '../../../types/state';
+import { Endpoint, RouteParams } from '../../../const';
 
 export const addCommentAction = createAsyncThunk<Review, {
   id: string;

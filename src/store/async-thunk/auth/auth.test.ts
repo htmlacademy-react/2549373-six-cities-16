@@ -1,7 +1,7 @@
 import { checkAuthAction, loginAction, logoutAction } from './auth';
 import { Endpoint } from '../../../const';
-import { extractActionsTypes, makeFakeState, makeFakeStore, mockAxiosAdapter, mockStore } from '../../../utils/moks.ts';
-import authSlice from '../../slices/auth/auth.ts';
+import { extractActionsTypes, makeFakeState, makeFakeStore, mockAxiosAdapter, mockStore } from '../../../utils/moks';
+import authSlice from '../../slices/auth/auth';
 
 describe('Auth async actions', () => {
   let store: ReturnType<typeof mockStore>;

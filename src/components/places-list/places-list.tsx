@@ -2,7 +2,7 @@ import { JSX } from 'react';
 import PlaceCard from '../place-card/place-card';
 import { Offers, OfferType } from '../../types/offers';
 import classNames from 'classnames';
-import { PageType } from '../../const.ts';
+import { PageType } from '../../const';
 
 type Props = {
   offers: Offers;
@@ -12,7 +12,7 @@ type Props = {
 function PlacesList({ offers, className }: Props): JSX.Element {
   const classWrapper = className === PageType.CITIES ? 'cities__places-list' : 'near-places__list';
   return (
-    <div className={classNames(['places__list', classWrapper])}>
+    <div className={classNames(['places__list', classWrapper])} data-testid='places-list'>
       {offers.map((offer: OfferType) =>
         <PlaceCard key={offer.id} offer={offer} className={className}/>)}
     </div>

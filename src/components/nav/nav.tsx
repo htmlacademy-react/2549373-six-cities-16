@@ -1,10 +1,10 @@
 import { JSX, MouseEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { AppRoute } from '../../const.ts';
+import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
-import { getUser, checkIsAuth } from '../../store/selectors/auth/auth.ts';
-import { getCountFavorites } from '../../store/selectors/favorites/favorites.ts';
-import { logoutAction } from '../../store/async-thunk/auth/auth.ts';
+import { checkIsAuth, getUser } from '../../store/selectors/auth/auth';
+import { getCountFavorites } from '../../store/selectors/favorites/favorites';
+import { logoutAction } from '../../store/async-thunk/auth/auth';
 
 function Nav(): JSX.Element {
   const isAuth = useAppSelector(checkIsAuth);
@@ -17,6 +17,13 @@ function Nav(): JSX.Element {
     dispatch(logoutAction());
   }
 
+  const userAvatarStyle = user
+    ? {
+      backgroundImage: `url(${user.avatarUrl})`,
+      borderRadius: '50%',
+    }
+    : {};
+
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
@@ -24,11 +31,7 @@ function Nav(): JSX.Element {
           <>
             <li className="header__nav-item user">
               <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
-                <div className="header__avatar-wrapper user__avatar-wrapper" style={user ? {
-                  backgroundImage: `url(${user.avatarUrl})`,
-                  borderRadius: '50%',
-                } : {}}
-                />
+                <div className="header__avatar-wrapper user__avatar-wrapper" style={userAvatarStyle}/>
                 <span className="header__user-name user__name">{user?.email}</span>
                 <span className="header__favorite-count">{countFavorites}</span>
               </Link>

@@ -1,6 +1,6 @@
-import { JSX, useState } from 'react';
+import { JSX, memo, useState } from 'react';
 import classNames from 'classnames';
-import { PageType } from '../../const.ts';
+import { PageType } from '../../const';
 
 type FavoriteButtonProps = {
   isFavorite: boolean;
@@ -38,6 +38,7 @@ function FavoriteButton({ isFavorite, onToggleFavorite, pageType = PageType.CITI
       className={buttonClass}
       type="button"
       onClick={handleButtonClick}
+      data-testid='favorite-button'
     >
       <svg className={iconClass} width={iconWidth} height={iconHeight} data-testid="favorite-icon">
         <use href="#icon-bookmark"></use>
@@ -47,5 +48,6 @@ function FavoriteButton({ isFavorite, onToggleFavorite, pageType = PageType.CITI
   );
 }
 
-export default FavoriteButton;
+const MemoizedFavoriteButton = memo(FavoriteButton);
+export default MemoizedFavoriteButton;
 

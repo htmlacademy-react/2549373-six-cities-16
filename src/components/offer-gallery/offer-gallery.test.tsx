@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import faker from 'faker';
-import OfferGallery from './offer-gallery.tsx';
+import OfferGallery from './offer-gallery';
 
 describe('OfferGallery Component', () => {
   it('should render the correct number of images', () => {

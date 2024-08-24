@@ -1,9 +1,9 @@
-import { OfferType } from '../../types/offers.ts';
-import { useAppSelector } from '../index.ts';
+import { OfferType } from '../../types/offers';
+import { useAppSelector } from '../index';
 import { useMemo } from 'react';
-import { groupBy } from '../../utils/utils.ts';
-import { SortOptionValue } from '../../const.ts';
-import { CityName } from '../../types/city.ts';
+import { groupBy } from '../../utils/utils';
+import { SortOptionValue } from '../../const';
+import { CityName } from '../../types/city';
 
 export const sortOffers = (offers: OfferType[], sortOption: SortOptionValue): OfferType[] => {
   switch (sortOption) {
