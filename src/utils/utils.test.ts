@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { capitalizeFirstLetter, formatDate, groupBy } from './utils';
+import { capitalizeFirstLetter, formatDate, groupBy, pluralize } from './utils';
 import { generateMockItems, MockItem } from './moks';
 
 describe('Functions utils:', () => {
@@ -50,6 +50,25 @@ describe('Functions utils:', () => {
     it('should return "Invalid Date" if the input is an empty string', () => {
       const result = formatDate('');
       expect(result).toBe('Invalid Date');
+    });
+  });
+
+  describe('Function: pluralize', () => {
+    it('should return "s" when count is greater than 1', () => {
+      expect(pluralize(2)).toBe('s');
+      expect(pluralize(10)).toBe('s');
+    });
+
+    it('should return an empty string when count is 1', () => {
+      expect(pluralize(1)).toBe('');
+    });
+
+    it('should return an empty string when count is 0', () => {
+      expect(pluralize(0)).toBe('');
+    });
+
+    it('should return an empty string when count is negative', () => {
+      expect(pluralize(-2)).toBe('');
     });
   });
 });

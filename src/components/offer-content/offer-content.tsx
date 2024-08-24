@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { checkIsAuth } from '../../store/selectors/auth/auth';
 import { toggleFavoriteStatusAction } from '../../store/async-thunk/favorites/favorites';
+import { pluralize } from '../../utils/utils.ts';
 
 type OfferContentProps = {
   offer: FullOffer;
@@ -59,8 +60,8 @@ function OfferContent({ offer, reviews }: OfferContentProps): JSX.Element {
       </div>
       <ul className="offer__features">
         <li className="offer__feature offer__feature--entire">{type}</li>
-        <li className="offer__feature offer__feature--bedrooms">{bedrooms} Bedrooms</li>
-        <li className="offer__feature offer__feature--adults">Max {maxAdults} adults</li>
+        <li className="offer__feature offer__feature--bedrooms">{bedrooms} Bedroom{pluralize(bedrooms)}</li>
+        <li className="offer__feature offer__feature--adults">Max {maxAdults} adult{pluralize(bedrooms)}</li>
       </ul>
       <div className="offer__price">
         <b className="offer__price-value">&euro;{price}</b>
