@@ -25,7 +25,7 @@ function FavoritesList(): JSX.Element {
   return (
     <ul className="favorites__list">
       {Object.entries(favoriteOffersByGroup).map(([city, offers]) => {
-        const cityId = Cities[city as CityName].id;
+        const cityId = Cities[city as CityName]?.id;
 
         return (
           <li key={city} className="favorites__locations-items">
