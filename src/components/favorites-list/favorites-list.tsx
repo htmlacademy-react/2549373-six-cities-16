@@ -1,16 +1,18 @@
 import { JSX, useMemo } from 'react';
 import PlaceCard from '../place-card/place-card';
 import { Offers } from '../../types/offers';
-import { PageType } from '../../const';
+import { AppRoute, Cities, PageType, RouteParams } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getFavorites } from '../../store/selectors/favorites/favorites';
 import { groupBy } from '../../utils/utils';
+import { Link } from 'react-router-dom';
+import { CityName } from '../../types/city';
 
 function FavoritesList(): JSX.Element {
   const favoriteOffers = useAppSelector(getFavorites);
 
-  const favoriteOffersByGroup: Record<string, Offers> = useMemo(
-    () => groupBy(favoriteOffers, (offer) => offer.city.name),
+  const favoriteOffersByGroup: Record<CityName, Offers> = useMemo(
+    () => groupBy(favoriteOffers, (offer) => offer.city.name as CityName),
     [favoriteOffers]
   );
 
@@ -22,20 +24,24 @@ function FavoritesList(): JSX.Element {
 
   return (
     <ul className="favorites__list">
-      {Object.entries(favoriteOffersByGroup).map(([city, offers]) => (
-        <li key={city} className="favorites__locations-items">
-          <div className="favorites__locations locations locations--current">
-            <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>{city}</span>
-              </a>
+      {Object.entries(favoriteOffersByGroup).map(([city, offers]) => {
+        const cityId = Cities[city as CityName]?.id;
+
+        return (
+          <li key={city} className="favorites__locations-items">
+            <div className="favorites__locations locations locations--current">
+              <div className="locations__item">
+                <Link className="locations__item-link" to={AppRoute.Main.replace(RouteParams.CityId, cityId)}>
+                  <span>{city}</span>
+                </Link>
+              </div>
             </div>
-          </div>
-          <div className="favorites__places">
-            {renderOffers(offers)}
-          </div>
-        </li>
-      ))}
+            <div className="favorites__places">
+              {renderOffers(offers)}
+            </div>
+          </li>
+        );
+      })}
     </ul>
   );
 }
